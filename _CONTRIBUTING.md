@@ -2,58 +2,67 @@
 
 ## General Workflow
 
-1. Fork the repo
-1. Cut a namespaced feature branch from master
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
-1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
-   reviews is to help keep the codebase clean and of high quality and, equally
-   as important, to help you grow as a programmer. If your code reviewer
-   requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
-   new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+1. Clone down the master directly (do not fork):
+
+  -> git clone masterURL yourdirectory
+
+2. Create a new feature branch from master, If it's a new feature, name the branch "feat#". If it's a bug fix, name the branch "bug#". # should be the associated issue number on the GitHub repo.
+
+  -> git checkout -b feat3
+
+  OR
+
+  -> git checkout -b bug11
+
+3. Make changes and commit to your feature branch.
+
+  -> git add -p
+
+4. Sync up with latest master before pushing to remote feature branch:
+
+  -> git pull --rebase origin master
+
+5. Fix any merge conflicts if necessary.
+
+6. Push changes to remote feature branch:
+
+  -> git push origin feat3
+
+7. Generate pull request:
+
+  -> base: master
+  -> compare: feat3
+
+8. Fix any issues highlighted by reviewer if necessary.
+
+9. When everything checks out, reviewer merges pull request to master.
+
+10. When a pull request is merged and closed, delete feat3 branch.
+
+
+
+
 
 ## Detailed Workflow
-
-### Fork the repo
-
-Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
-
-```
-git remote add upstream https://github.com/makersquare/<NAME_OF_REPO>.git
-```
 
 ### Cut a namespaced feature branch from master
 
 Your branch should follow this naming convention:
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
+  - bug#
+  - feat#
+  - test#
+  - doc#
+  - refactor#
+
+  Where # associates directly with the issue number in the GitHub repo
 
 These commands will help you do this:
 
-``` bash
-
 # Creates your branch and brings you there
-git checkout -b `your-branch-name`
-```
 
-### Make commits to your feature branch. 
+git checkout -b `your-branch-name`
+
+### Make commits to your feature branch.
 
 Prefix each commit like so
   - (feat) Added a new feature
@@ -86,9 +95,7 @@ your code merged into the main repo. Step 1 is to rebase upstream
 changes to the master branch into yours by running this command
 from your branch:
 
-```bash
 git pull --rebase upstream master
-```
 
 This will start the rebase process. You must commit all of your changes
 before doing this. If there are no conflicts, this should just roll all
@@ -108,9 +115,7 @@ rebase.
 
 Once you are done fixing conflicts for a specific commit, run:
 
-```bash
 git rebase --continue
-```
 
 This will continue the rebasing process. Once you are done fixing all
 conflicts you should run the existing tests to make sure you didn’t break
@@ -131,6 +136,8 @@ At least one other person MUST give your changes a code review, and once
 they are satisfied they will merge your changes into upstream. Alternatively,
 they may have some requested changes. You should make more commits to your
 branch to fix these, then follow this process again from rebasing onwards.
+
+Note: A pull request will be immediately rejected if there are any conflicts!
 
 Once you get back here, make a comment requesting further review and
 someone will look at your code again. If they like it, it will get merged,
