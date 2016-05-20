@@ -1,6 +1,7 @@
 var browserify = require('browserify-middleware')
 var express = require('express')
 var Path = require('path')
+var xmlParse = require('xml2js').parseString;
 
 var routes = express.Router()
 
