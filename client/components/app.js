@@ -2,8 +2,34 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 class SearchBox extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      value: 'SearchBox'
+    };
+  }
   render() {
-    return( <input type="text">Search Box</input> );
+    return (
+      <form className="search-form" onSubmit={this._handleSubmit.bind(this)}>
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this._handleClick}
+        />
+      </form>
+    );
+  }
+  _handleSubmit(e) {
+    e.preventDefault();
+  }
+
+  _getInitialState() {
+    return {value: 'SearchBox'};
+  }
+
+  _handleClick(event) {
+    this.setState({value: event.target.value});
   }
 }
 
@@ -13,12 +39,7 @@ ReactDOM.render(
 
 
 
-// ReactDOM.render(
-//   <h1>Hello, world!</h1>, // JSX
-//   // React.createElement("h1", null, "Hello, world!"),
-//   // m("h1", "Hello, world!"),
-//   document.getElementById('app')
-// );
+
 
 
 // var Waitlist = React.createClass({
