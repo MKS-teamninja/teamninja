@@ -5,3 +5,4 @@ config
 reference.js
 build/
 dist/
+config.js

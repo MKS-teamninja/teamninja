@@ -9,7 +9,7 @@ var rp = require('request-promise');
 var xmlParse = require('xml2js').parseString;
 
 var campgrounds = {
-  uri: 'http://api.amp.active.com/camping/campgrounds?pstate=TX&siteType=2001',
+  uri: 'http://api.amp.active.com/camping/campgrounds?pstate=TX',
   qs: {
     api_key: cfg.getCgApiKey()
   },
@@ -48,3 +48,5 @@ rp(campsites)
   .catch(function(err) {
     console.log("Campsite fetch error:", err);
   });
+
+db.regenerateDb();

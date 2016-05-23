@@ -8,89 +8,73 @@ var path = require('path');
 
 var config = require('./knexfile')
 var env = process.env.NODE_ENV || 'development'
+var knex = require('knex')(config[env])
 
-// TODO: Configure KNEX correctly
+module.exports = knex;
 
-// var knex = require('knex')(config[env])
+knex.ensureSchema = ensureSchema = function () {
+  return Promise.all([
+    knex.schema.hasTable('campgrounds').then(function (exists) {
+      if (!exists) {
+        knex.schema.createTable('campgrounds', function (table) {
+          table.increments('campground_id').primary();
+          table.integer('facility_id');
+          table.string('facility_name', 255);
+          table.string('facility_photo_url', 255);
+          table.string('latitude', 255);
+          table.string('longitude', 255);
+          table.string('waterfront', 255);
+          table.boolean('amps');
+          table.boolean('pets');
+          table.boolean('sewer');
+          // table.timestamps();
+        }).then(function (table) {
+          console.log('Created campgrounds table.');
+        })
+      }
+    }),
 
-// module.exports = knex;
+    knex.schema.hasTable('campsites').then(function (exists) {
+      if (!exists) {
+        knex.schema.createTable('campsites', function (table) {
+          table.increments('campsite_id').primary();
+          table.integer('campground_id_fk');
+          table.integer('site_id');
+          table.string('site_name', 255);
+          table.string('site_type', 255);
+          table.string('waterfront', 255);
+          table.string('water', 255);
+          table.boolean('amps');
+          table.boolean('pets');
+          table.boolean('sewer');
+          // table.timestamps();
+        }).then(function (table) {
+          console.log('Created campsites table.');
+        });
+      }
+    })
+  ])
+}
 
-// knex.deleteEverything = function () {
-//   // TODO: Don't forget to add your tables when you create their schemas
+knex.deleteEverything = deleteEverything = function () {
+  return knex('campsites').truncate()
+    .then(function () {
+      // return knex('campgrounds').truncate()
+      return knex('campgrounds').truncate()
+    })
+    .then(function () {
+      console.log("Deleted campgrounds and campsites db tables")
+    })
+}
 
-//   // Delete clicks first since it has a foreign key
-//   return knex('clicks').truncate()
-//     .then(function () {
-//       return knex('links').truncate()
-//     })
-
-//     .then(function () {
-//       return knex('sessions').truncate()
-//     })
-//     .then(function () {
-//       return knex('users').truncate()
-//     })
-//     }
-
-// knex.ensureSchema = function () {
-//   return Promise.all([
-//     knex.schema.hasTable('links').then(function(exists) {
-//       if (!exists) {
-//         knex.schema.createTable('links', function (table) {
-//           table.increments('id').primary();
-//           table.string('url', 255);
-//           table.string('base_url', 255);
-//           table.string('code', 100);
-//           table.string('title', 255);
-//           table.integer('visits');
-//           table.timestamps();
-//         }).then(function (table) {
-//           console.log('Created links table.');
-//         });
-//       }
-//     }),
-
-//     knex.schema.hasTable('clicks').then(function(exists) {
-//       if (!exists) {
-//         knex.schema.createTable('clicks', function (table) {
-//           table.increments('id').primary();
-//           table.integer('link_id');
-//           table.timestamps();
-//         }).then(function (table) {
-//           console.log('Created clicks table.');
-//         });
-//       }
-//     }),
-
-//     /************************************************************/
-//     // Add additional schema definitions below
-//     /************************************************************/
-
-//     knex.schema.hasTable('users').then(function(exists) {
-//       if (!exists) {
-//         knex.schema.createTable('users', function (table) {
-//           table.increments('id').primary();
-//           table.string('username', 100).unique();
-//           table.string('password_hash', 100);
-//           table.timestamps();
-//         }).then(function (table) {
-//           console.log('Created users table.');
-//         });
-//       }
-//     }),
-
-//     knex.schema.hasTable('sessions').then(function(exists) {
-//       if (!exists) {
-//         knex.schema.createTable('sessions', function (table) {
-//           table.string('id').primary();
-//           table.integer('user_id');
-//           table.timestamps();
-//         }).then(function (table) {
-//           console.log('Created sessions table.');
-//         });
-//       }
-//     }),
-
-//   ])
-// }
-
+knex.regenerateDb = function () {
+  deleteEverything().then(function () {
+    console.log("Deleted everything first...");
+    return ensureSchema();
+  }).then(function () {
+    console.log("Created campground/campsite tables");
+    knex.destroy()
+  }).then(function () {
+    console.log("Successfully closed pool connection")
+  })
+}
