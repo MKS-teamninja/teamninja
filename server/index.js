@@ -9,7 +9,7 @@ var routes = express.Router()
 // Provide a browserified file at a specified path
 //
 routes.get('/app-bundle.js',
-  browserify('./client/app.js', {
+  browserify('./client/components/app.js', {
     transform: [ require('reactify') ]
   }))
 //
