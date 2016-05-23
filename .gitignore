@@ -1,8 +1,6 @@
 node_modules/
 bower_components/
 *.log
-config
 reference.js
 build/
 dist/
-config.js
