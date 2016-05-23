@@ -19,11 +19,14 @@ knex.ensureSchema = ensureSchema = function () {
         knex.schema.createTable('campgrounds', function (table) {
           table.increments('campground_id').primary();
           table.integer('facility_id');
+          table.string('contract_id', 255);
+          table.string('contract_type', 255);
           table.string('facility_name', 255);
           table.string('facility_photo_url', 255);
           table.string('latitude', 255);
           table.string('longitude', 255);
           table.string('waterfront', 255);
+          table.boolean('water');
           table.boolean('amps');
           table.boolean('pets');
           table.boolean('sewer');
