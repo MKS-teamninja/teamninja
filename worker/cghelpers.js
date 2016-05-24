@@ -69,7 +69,8 @@ Camp.fetch = function(request, cgId) {
       return promisedXmlToJs(res);
     })
     .catch(function (err) {
-      console.log("Failed to fetch camp info: ", err);
+      console.log("Failed to fetch camp info: ");
+      // console.log("Failed to fetch camp info: ", err);
     })
     .then(function (jsres) {
       console.log("Successfully parsed camp info:");
@@ -84,6 +85,7 @@ Camp.fetch = function(request, cgId) {
         .value();
     })
     .catch(function (err) {
-      console.log("XML parse error: ", err);
+      // console.log("XML parse error: ", err);
+      console.log("XML parse error: ");
     })
 };
