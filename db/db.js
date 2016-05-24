@@ -74,6 +74,20 @@ knex.deleteEverything = function () {
 }
 
 //
+// Select all campgrounds from the campgrounds table
+//
+knex.queryCampgrounds = function() {
+  return knex('campgrounds').select();
+};
+
+//
+// Select all campsites with the given campground ID
+//
+knex.queryCampsites = function(cg_id) {
+  return knex('campsites').where({'campground_id_fk': cg_id}).select();
+}
+
+//
 // Insert all elements of a campground/campsite array into the given table name
 //
 knex.insertEverything = function(campArr, table) {

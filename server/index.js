@@ -1,7 +1,28 @@
+//
+// Index.js
+//
+// Client-facing server code for Campground Query app
+// Run "nodemon server/index.js" to start on localhost:4000
+//
+// Routes:
+//
+// GET /searchcg
+//   - Queries all campgrounds within a given range
+//   - Client should include user's latitude, longitude, and radius (in miles)
+//   - Example URL: http://localhost:4000/searchcg?lat=30.48276099999998&lon=-97.6564032&rad=30
+//
+// GET /searchcs
+//   - Returns all campsites within a given campground
+//   - Client should include campground ID as a request parameter named cgId
+//   - Example URL: http://localhost:4000/searchcs?cgId=820400
+//
+
 var browserify = require('browserify-middleware')
 var express = require('express')
 var Path = require('path')
+var helpers = require('./helpers');
 var xmlParse = require('xml2js').parseString;
+var db = require('../db/db');
 
 var routes = express.Router()
 
@@ -12,12 +33,6 @@ routes.get('/app-bundle.js',
   browserify('./client/components/app.js', {
     transform: [ require('reactify') ]
   }))
-//
-// Example endpoint (also tested in test/server/index_test.js)
-//
-routes.get('/api/tags-example', function(req, res) {
-  res.send(['node', 'express', 'browserify', 'mithril'])
-})
 
 //
 // Static assets (html, etc.)
@@ -27,6 +42,42 @@ routes.use(express.static(assetFolder))
 
 
 if (process.env.NODE_ENV !== 'test') {
+  //
+  // Campground query route
+  // Returns all campgrounds within the given radius
+  // Client should include user's latitude, longitude, and radius (in miles)
+  // as request parameters named lat, lon, rad
+  // Example URL:
+  //   http://localhost:4000/searchcg?lat=30.48276099999998&lon=-97.6564032&rad=30
+  //
+  routes.get('/searchcg', function (req, res) {
+    console.log("Request lat: ", req.query.lat);
+    console.log("Request lon: ", req.query.lon);
+    console.log("Request rad: ", req.query.rad);
+    db.queryCampgrounds()
+      .then(function(cgs) {
+        var filtered = helpers.cgFilter(cgs, req.query.lat, req.query.lon, req.query.rad);
+        // console.log("Filtered campground set: ", filtered);
+        res.status(200).send(filtered);
+    })
+  })
+
+  //
+  // Campsite query route:
+  // Returns all campsites within a given campground
+  // Client should include campground ID as a request parameter named cgId
+  // Example URL:
+  //   http://localhost:4000/searchcs?cgId=820400
+  //
+  routes.get('/searchcs', function (req, res) {
+    console.log("Requested campground ID: ", req.query.cgId);
+    db.queryCampsites(req.query.cgId)
+      .then(function(cs) {
+        // console.log("Campsites in campground #" + req.query.cgId + ": ", cs);
+        res.status(200).send(cs);
+    })
+  })
+
   //
   // The Catch-all Route
   // This is for supporting browser history pushstate.
