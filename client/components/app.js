@@ -1,32 +1,25 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
-class Search extends React.Component {
-  
-  render() {
-    
-    return(
-      <div className="search">
-        <p className="comment-header">{this.props.author}</p>          
-      </div>
-    );
-  }
-}
-
-
-
-class SearchBox extends React.Component {
+//
+// The initial page component
+//
+class SearchBoxPage extends React.Component {
   constructor() {
     super();
-
+//
+// TODO: Refactor for API response
+//
     this.state = {
       searches: [
-        { id: 1, author: 'Jack'},
-        { id: 2, author: 'Vidush'}
+        { id: 1, searchData: 'Jack'},
+        { id: 2, searchData: 'Vidush'}
       ]
     };
   }
+//
+// Renders the page
+//
   render() {
     const searches = this._getSearches();
     return (
@@ -39,10 +32,14 @@ class SearchBox extends React.Component {
       </div>
     );
   }
-  _addSearch(searchAuthor) {
+//
+// Method to add search data
+// TODO: Fetch Google API data 
+//
+  _addSearch(searchsearchData) {
     let search = {
       id: this.state.searches.length + 1,
-      author: searchAuthor
+      searchData: searchData
     };
     this.setState({ 
       searches: this.state.searches.concat([search])
@@ -52,18 +49,23 @@ class SearchBox extends React.Component {
   _getSearches() {
     return this.state.searches.map((search) => {
       return (<Search
-                author={search.author}
+                searchData={search.searchData}
                 key={search.id} />);
     })
   }
 }
-
+//
+// Child component of SearchBoxPage
+//
 class SearchList extends React.Component {
+//
+// Creates the input element and button element
+//
   render() {
     return (
       <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
         <div className='search-list-fields'>
-          <input placeholder="Search Box" ref={(value) => this._author = value}/>
+          <input placeholder="Search Box" ref={(value) => this._searchData = value}/>
         </div>
         <div className='search-list-actions'>
           <button type='submit'>
@@ -76,17 +78,32 @@ class SearchList extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    this.props.addSearch(this._author.value);
+    this.props.addSearch(this._searchData.value);
 
-    this._author.value = '';
+    this._searchData.value = '';
     
+  }
+}
+//
+// Child component of SearchBoxPage
+//
+class Search extends React.Component {
+//
+// Renders the user's input to p tag and appends to the search-list
+//
+  render() {
+    
+    return(
+      <div className="search">
+        <p className="users-search">{this.props.searchData}</p>          
+      </div>
+    );
   }
 }
 
 ReactDOM.render(
-  <SearchBox />,  document.getElementById('app')
+  <SearchBoxPage />,  document.getElementById('app')
   );
-
 
 
 
