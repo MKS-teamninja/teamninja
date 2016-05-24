@@ -1,35 +1,85 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+
+class Search extends React.Component {
+  
+  render() {
+    
+    return(
+      <div className="search">
+        <p className="comment-header">{this.props.author}</p>          
+      </div>
+    );
+  }
+}
+
+
+
 class SearchBox extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      value: 'SearchBox'
+      searches: [
+        { id: 1, author: 'Jack'},
+        { id: 2, author: 'Vidush'}
+      ]
     };
   }
   render() {
+    const searches = this._getSearches();
     return (
-      <form className="search-form" onSubmit={this._handleSubmit.bind(this)}>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this._handleClick}
-        />
+      <div className='search-box'>
+        <SearchList addSearch={this._addSearch.bind(this)} />
+        <h3>Searches</h3>
+        <div className='seach-list'>
+          {searches}
+        </div>
+      </div>
+    );
+  }
+  _addSearch(searchAuthor) {
+    let search = {
+      id: this.state.searches.length + 1,
+      author: searchAuthor
+    };
+    this.setState({ 
+      searches: this.state.searches.concat([search])
+    });
+  }
+
+  _getSearches() {
+    return this.state.searches.map((search) => {
+      return (<Search
+                author={search.author}
+                key={search.id} />);
+    })
+  }
+}
+
+class SearchList extends React.Component {
+  render() {
+    return (
+      <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
+        <div className='search-list-fields'>
+          <input placeholder="Search Box" ref={(value) => this._author = value}/>
+        </div>
+        <div className='search-list-actions'>
+          <button type='submit'>
+            submit
+          </button>
+        </div>
       </form>
     );
   }
   _handleSubmit(e) {
     e.preventDefault();
-  }
 
-  _getInitialState() {
-    return {value: 'SearchBox'};
-  }
+    this.props.addSearch(this._author.value);
 
-  _handleClick(event) {
-    this.setState({value: event.target.value});
+    this._author.value = '';
+    
   }
 }
 
@@ -42,53 +92,3 @@ ReactDOM.render(
 
 
 
-// var Waitlist = React.createClass({
-//   render: function () {
-//     return <div className="waitlist">
-//       {this.props.roster.map( person =>
-//         <div key={person.id} className="person">{ person.name }</div>
-//       )}
-//     </div>
-//   }
-// })
-
-// var WaitlistMgr = React.createClass({
-//   getInitialState: function () {
-//     return {
-//       people: [
-//         { id: 10, name: 'alice' },
-//         { id: 11, name: 'bob'}
-//       ],
-//       newPersonName: '[Type person name here]'
-//     }
-//   },
-
-//   setNewPersonName: function (e) {
-//     this.setState({ newPersonName: e.target.value })
-//   },
-
-//   add: function () {
-//     console.log("Adding new person:", this.state.newPersonName)
-//     this.state.people.push(
-//       { id: Math.round(Math.random() * 1000), name: this.state.newPersonName }
-//     )
-//   },
-
-//   render: function () {
-//     return <div className="waitlist-mgr">
-//       <Waitlist roster={this.state.people} />
-
-//       <input type="text"
-//         value={this.state.newPersonName}
-//         onChange={this.setNewPersonName} />
-
-//       <p>Add new person: {this.state.newPersonName}</p>
-//       <button onClick={this.add}>Add Person</button>
-//     </div>
-//   }
-// })
-
-// ReactDOM.render(
-//   <WaitlistMgr />,
-//   document.getElementById('app')
-// )
