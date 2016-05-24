@@ -1,40 +1,16 @@
 //
 // Campground grabber
 //
-// This worker queries the campground API once a day and upserts the campground database.
+// This worker queries the campground API once a day and regenerates the campground database.
 //
 var cfg = require('../config');
 var db = require('../db/db');
-var rp = require('request-promise');
 var _ = require('underscore');
-var xmlToJs = require('xml2js').parseString;
+var camp = require('./cghelpers');
 
-var promisedXmlToJs = function (xml) {
-  return new Promise(function (resolve, reject) {
-    xmlToJs(xml, function (err, result) {
-      if (err) reject(err);
-      else resolve(result);
-    });
-  })
-};
-
-var buildCgObject = function (cg) {
-    var cgTemplate = {};
-    cgTemplate.contract_id = cg["contractID"];
-    cgTemplate.contract_type = cg["contractType"];
-    cgTemplate.facility_id = cg["facilityID"];
-    cgTemplate.facility_name = cg["facilityName"]
-    cgTemplate.facility_photo_url = cg["faciltyPhoto"];
-    cgTemplate.latitude = cg["latitude"];
-    cgTemplate.longitude = cg["longitude"];
-    cgTemplate.waterfront = cg["sitesWithWaterfront"];
-    cgTemplate.amps = cg["sitesWithAmps"] === 'Y' ? 1 : 0;
-    cgTemplate.pets = cg["sitesWithPetsAllowed"] === 'Y' ? 1 : 0;
-    cgTemplate.sewer = cg["sitesWithSewerHookup"] === 'Y' ? 1 : 0;
-    cgTemplate.water = cg["sitesWithWaterHookup"] === 'Y' ? 1 : 0;
-    return cgTemplate;
-  }
-
+//
+// Query info for Active's Campground Search API
+//
 var campgrounds = {
   uri: 'http://api.amp.active.com/camping/campgrounds?pstate=TX',
   qs: {
@@ -46,9 +22,11 @@ var campgrounds = {
   json: true
 };
 
-// TODO: fill in contractCode and parkId dynamically. Hardcoded for now.
-var campsites = {
-  uri: 'http://api.amp.active.com/camping/campsites?contractCode=CO&parkId=50032',
+//
+// Query info for Active's Campsite Search API
+//
+var campsite = {
+  uri: campsitesUrl,
   qs: {
     api_key: cfg.getCgApiKey()
   },
@@ -58,53 +36,65 @@ var campsites = {
   json: true
 };
 
+//
+// Base string used to query campsites of a specific campground
+//
+var campsitesUrl = 'http://api.amp.active.com/camping/campsites?';
 
-rp(campgrounds)
-  .then(function (res) {
-    console.log("Successfully fetched campgrounds");
-    return promisedXmlToJs(res);
-  })
-  .then(function (jsres) {
-    console.log("Successfully parsed campground info:");
-    return _.chain(jsres.resultset.result)
-            .pluck('$')
-            .filter(function (cg) {
-              return !(cg.contractType === "PRIVATE");
-            })
-            .map(function (cg) {
-              return buildCgObject(cg);
-            })
-            .value();
-  })
-  .then(function (campgrounds) {
-    //
-    // Use cleaned results to build an array of objects we can insert right into the table
-    //
-    console.log("Cleaned results: ", campgrounds)
-  })
-  .catch(function (err) {
-    console.log("Campground fetch error:", err);
-  })
-  .catch(function (err) {
-    console.log("Campground XML parse error:", err);
-  })
+//
+// Main worker function collects campground and campsite info
+// then stores them in the database
+//
+var worker = function() {
+  db.deleteEverything();
+  db.ensureSchema()
+    .then(function () {
+      console.log("Regenerated campground and campsite tables");
+      return collectCampgrounds();
+    })
+    .then(function(cgs) {
+      // var testCgs = cgs.slice(0, 2);
+      console.log("Collected campgrounds");
+      return collectCampsites(cgs)
+    })
+    .then(function () {
+      console.log("Collected campsites");
+      db.closeDb();
+    })
+    .catch(function (err) {
+      console.log("Worker failed: ", err);
+    })
+}()
 
-// rp(campsites)
-//   .then(function (res) {
-//     return promisedXmlToJs(res);
-//   })
-//   .then(function (jsres) {
-//     console.log("Successfully obtained campsite info:");
-//     return _.pluck(jsres.resultset.result, '$');
-//   })
-//   .then(function (campsites) {
-//     console.log("Fitered results: ", campsites)
-//   })
-//   .catch(function (err) {
-//     console.log("Campsite fetch error:", err);
-//   })
-//   .catch(function (err) {
-//     console.log("Campsite XML parse error:", err);
-//   })
+//
+// Fetches a scrubbed array of campgrounds and
+// inserts them into the campgrounds table
+//
+var collectCampgrounds = function() {
+  return camp.fetch(campgrounds)
+    .then(function (cgs) {
+      // console.log("Cleaned results: ", cgs)
+      //
+      // Insert campground data into db
+      //
+      return db.insertEverything(cgs, 'campgrounds');
+    })
+}
 
-db.regenerateDb();
+//
+// Fetches a scrubbed array of campsites for each campground and
+// inserts them into the campsites table
+//
+var collectCampsites = function(cgs) {
+  return Promise.all(_.map(cgs, function(cg) {
+    var csQuery = _.extend({}, campsite);
+    csQuery.uri += 'contractCode=' +
+                   cg.contract_id +
+                   '&parkId=' +
+                   cg.facility_id;
+    return camp.fetch(csQuery, cg.facility_id)
+      .then(function (campsites) {
+        return db.insertEverything(campsites, 'campsites')
+      })
+  }))
+}
