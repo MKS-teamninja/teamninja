@@ -16,6 +16,7 @@
     "express": "^4.12.4",
     "knex": "^0.11.3",
     "nodemon": "^1.9.2",
+    "promise-throttle": "^0.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "reactify": "^1.1.1",
