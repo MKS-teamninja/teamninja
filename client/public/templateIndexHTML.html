@@ -68,38 +68,9 @@
 function initMap() {
   // Create a map object and specify the DOM element for display.	
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 30.48276099999998, lng: -97.6564032},
+    center: {lat: -34.397, lng: 150.644},
     scrollwheel: false,
-    zoom: 11
-  });
-  var myLatLng = {lat: 30.48276099999998, lng: -97.6564032};
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
-}
-
-//////
-
-var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-var icons = {
-  parking: {
-    icon: iconBase + 'parking_lot_maps.png'
-  },
-  library: {
-    icon: iconBase + 'library_maps.png'
-  },
-  info: {
-    icon: iconBase + 'info-i_maps.png'
-  }
-};
-
-function addMarker(feature) {
-  var marker = new google.maps.Marker({
-    position: feature.position,
-    icon: icons[feature.type].icon,
-    map: map
+    zoom: 8
   });
 }
 </script>
