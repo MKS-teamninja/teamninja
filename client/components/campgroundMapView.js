@@ -19,8 +19,8 @@ class CampgroundMap extends React.Component {
 function initMap() {
   // Create a map object and specify the DOM element for display.
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: {lat: 30.48276099999998, lng: -97.6564032},
     scrollwheel: false,
-    zoom: 8
+    zoom: 11
   });
 }
