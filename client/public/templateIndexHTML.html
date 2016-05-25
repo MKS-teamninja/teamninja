@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>My App</title>
+</head>
+<body>
+
+<div id="app">
+	<!--SearchList Component-->
+	<form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
+	    <div className='search-list-fields'>
+	      <input placeholder="Search Box" ref={(value) => this._searchData = value}/>
+	    </div>
+	    <div className='search-list-actions'>
+	      <button type='submit'>
+	        submit
+	      </button>
+	    </div>
+	</form>
+	<!--SearchList End-->
+	<!--SetRadius Component-->
+	<div className='search-radius'>
+	</div>
+	<!--SetRadius End-->
+	<!--CampgroundList Component-->
+	<div className='campgound-list'>
+		<!--CampgroundResult Component-->
+		<div className='campground-result'>
+		</div>
+		<!--CampgroundResult End-->
+	</div>
+	<!--CampgroundList End-->
+	<!--CampgroundMap Component-->
+	<div className='campground-map'>
+		<!--CampgroundIcon Component-->
+		<div className='campground-icon'>
+		</div>
+		<!--CampgroundIcon End-->
+	</div>
+	<!--CampgroundMap End-->
+	<!--CampsiteList Component-->
+	<div className='campsite-list'>
+		<!--CampsiteResult Component-->
+		<div className='campsite-result'>
+		</div>
+		<!--CampsiteResult End-->
+	</div>
+	<!--CampsiteList End-->
+	<!--CampsiteMap Component-->
+	<div className='campsite-map'>
+		<!--CampsiteIcon Component-->
+		<div className='campsite-icon'>
+		</div>
+		<!--CampsiteIcon End-->
+	</div>
+	<!--CampsiteMap End-->
+</div>
+
+<script src="/app-bundle.js"></script>
+</body>
+</html>
