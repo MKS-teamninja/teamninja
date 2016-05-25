@@ -1,9 +1,15 @@
 <html>
 <head>
   <title>My App</title>
+ <style>
+  #map {
+    width: 500px;
+    height: 400px;
+    background-color: #CCC;
+  }
+</style>
 </head>
 <body>
-
 <div id="app">
 	<!--SearchList Component-->
 	<form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
@@ -31,6 +37,7 @@
 	<!--CampgroundList End-->
 	<!--CampgroundMap Component-->
 	<div className='campground-map'>
+		<div id="map"></div>
 		<!--CampgroundIcon Component-->
 		<div className='campground-icon'>
 		</div>
@@ -56,5 +63,17 @@
 </div>
 
 <script src="/app-bundle.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+<script>
+function initMap() {
+  // Create a map object and specify the DOM element for display.	
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    scrollwheel: false,
+    zoom: 8
+  });
+}
+</script>
 </body>
 </html>
+
