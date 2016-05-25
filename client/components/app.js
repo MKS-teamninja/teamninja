@@ -1,7 +1,7 @@
 "use strict";
 var React = require('react');
 var ReactDOM = require('react-dom');
-
+var $ = require('jquery');
 //
 // The initial page component
 //
@@ -12,10 +12,7 @@ class SearchBoxPage extends React.Component {
 // TODO: Refactor for API response
 //
     this.state = {
-      searches: [
-        { id: 1, searchData: 'Jack'},
-        { id: 2, searchData: 'Vidush'}
-      ]
+      searches: []
     };
   }
 //
@@ -37,10 +34,38 @@ class SearchBoxPage extends React.Component {
 // Method to add search data
 // TODO: Fetch Google API data 
 //
-  _addSearch(searchData) {
+// componentWillMount(){
+//   this._addSearch();
+// }
+
+  _addSearch(data) {
+    $.ajax({
+      method:"GET",
+      url:"https://maps.googleapis.com/maps/api/geocode/json?address=11324+Autumn+Ash+Manchaca,+TX&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk",
+      data:{},
+       success: (data) => {
+        let results = data.results[0].geometry
+        console.log('First success', data, results[0])
+        //console.log('data', JSON.parse(data))
+        console.log("data", JSON.stringify(results['location']))
+// "geometry": {
+//         "location": {
+//           "lat": 30.142358,
+//           "lng": -97.806557
+//         },
+//
+           // $.ajax({
+           //     method:"GET",
+           //     url:"/endpoint",
+           //     //data: $.extend(data, {radius: user input}),
+           //     success:function(data){
+           //        console.log('Yeasssssssss')
+           //     }
+           }
+         })
     let search = {
       id: this.state.searches.length + 1,
-      searchData: searchData
+      searchData: data
     };
     this.setState({ 
       searches: this.state.searches.concat([search])
