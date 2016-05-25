@@ -36,7 +36,7 @@ class SearchBoxPage extends React.Component {
 // Method to add search data
 // TODO: Fetch Google API data 
 //
-  _addSearch(searchsearchData) {
+  _addSearch(searchData) {
     let search = {
       id: this.state.searches.length + 1,
       searchData: searchData
