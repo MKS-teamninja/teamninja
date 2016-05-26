@@ -1,4 +1,5 @@
 "use strict";
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -12,7 +13,10 @@ class SearchBoxPage extends React.Component {
 // TODO: Refactor for API response
 //
     this.state = {
-      searches: []
+      searches: [
+        { id: 1, searchData: 'SearchData:'},
+        { id: 2, searchData: 'Vidush'}
+      ]
     };
   }
 //
@@ -37,39 +41,29 @@ class SearchBoxPage extends React.Component {
 // componentWillMount(){
 //   this._addSearch();
 // }
-
-  _addSearch(data) {
+//
+  _addSearch(value) {
+    value = value.replace(" ", "");
+    let urlValue = 'https://maps.googleapis.com/maps/api/geocode/json?address='+value+'&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk';
     $.ajax({
       method:"GET",
-      url:"https://maps.googleapis.com/maps/api/geocode/json?address=11324+Autumn+Ash+Manchaca,+TX&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk",
+      url: urlValue,
       data:{},
        success: (data) => {
         let results = data.results[0].geometry
         console.log('First success', data, results[0])
         //console.log('data', JSON.parse(data))
         console.log("data", JSON.stringify(results['location']))
-// "geometry": {
-//         "location": {
-//           "lat": 30.142358,
-//           "lng": -97.806557
-//         },
-//
-           // $.ajax({
-           //     method:"GET",
-           //     url:"/endpoint",
-           //     //data: $.extend(data, {radius: user input}),
-           //     success:function(data){
-           //        console.log('Yeasssssssss')
-           //     }
+        let search = {
+          id: this.state.searches.length + 1,
+          searchData: JSON.stringify(results['location'])
+        };
+        this.setState({ 
+          searches: this.state.searches.concat([search])
+        });
+
            }
          })
-    let search = {
-      id: this.state.searches.length + 1,
-      searchData: data
-    };
-    this.setState({ 
-      searches: this.state.searches.concat([search])
-    });
   }
 
   _getSearches() {
@@ -91,7 +85,7 @@ class SearchList extends React.Component {
     return (
       <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
         <div className='search-list-fields'>
-          <input placeholder="Search Box" ref={(value) => this._searchData = value}/>
+          <input placeholder="Street City State" ref={(value) => this._searchData = value}/>
         </div>
         <div className='search-list-actions'>
           <button type='submit'>
