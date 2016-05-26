@@ -1,4 +1,5 @@
 "use strict";
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -12,7 +13,10 @@ class SearchBoxPage extends React.Component {
 // TODO: Refactor for API response
 //
     this.state = {
-      searches: []
+      searches: [
+        { id: 1, searchData: 'Jack'},
+        { id: 2, searchData: 'Vidush'}
+      ]
     };
   }
 //
@@ -48,28 +52,16 @@ class SearchBoxPage extends React.Component {
         console.log('First success', data, results[0])
         //console.log('data', JSON.parse(data))
         console.log("data", JSON.stringify(results['location']))
-// "geometry": {
-//         "location": {
-//           "lat": 30.142358,
-//           "lng": -97.806557
-//         },
-//
-           // $.ajax({
-           //     method:"GET",
-           //     url:"/endpoint",
-           //     //data: $.extend(data, {radius: user input}),
-           //     success:function(data){
-           //        console.log('Yeasssssssss')
-           //     }
+        let search = {
+          id: this.state.searches.length + 1,
+          searchData: JSON.stringify(results['location'])
+        };
+        this.setState({ 
+          searches: this.state.searches.concat([search])
+        });
+
            }
          })
-    let search = {
-      id: this.state.searches.length + 1,
-      searchData: data
-    };
-    this.setState({ 
-      searches: this.state.searches.concat([search])
-    });
   }
 
   _getSearches() {
