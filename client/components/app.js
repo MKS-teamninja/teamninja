@@ -14,6 +14,7 @@ class SearchBoxPage extends React.Component {
 //
     this.state = {
       searches: [
+
         { id: 1, searchData: 'SearchData:'},
         { id: 2, searchData: 'Vidush'}
       ]
