@@ -14,7 +14,7 @@ class SearchBoxPage extends React.Component {
 //
     this.state = {
       searches: [
-        { id: 1, searchData: 'Jack'},
+        { id: 1, searchData: 'SearchData:'},
         { id: 2, searchData: 'Vidush'}
       ]
     };
@@ -41,11 +41,13 @@ class SearchBoxPage extends React.Component {
 // componentWillMount(){
 //   this._addSearch();
 // }
-
-  _addSearch(data) {
+//
+  _addSearch(value) {
+    value = value.replace(" ", "");
+    let urlValue = 'https://maps.googleapis.com/maps/api/geocode/json?address='+value+'&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk';
     $.ajax({
       method:"GET",
-      url:"https://maps.googleapis.com/maps/api/geocode/json?address=11324+Autumn+Ash+Manchaca,+TX&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk",
+      url: urlValue,
       data:{},
        success: (data) => {
         let results = data.results[0].geometry
@@ -83,7 +85,7 @@ class SearchList extends React.Component {
     return (
       <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
         <div className='search-list-fields'>
-          <input placeholder="Search Box" ref={(value) => this._searchData = value}/>
+          <input placeholder="Street City State" ref={(value) => this._searchData = value}/>
         </div>
         <div className='search-list-actions'>
           <button type='submit'>
