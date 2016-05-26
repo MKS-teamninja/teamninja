@@ -1,5 +1,1 @@
 //main component
-
-
-
-
