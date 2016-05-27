@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Search = require('./search')
 //
 // The initial page component
 //
@@ -121,22 +122,7 @@ class SearchList extends React.Component {
     
   }
 }
-//
-// Child component of SearchBoxPage
-//
-class Search extends React.Component {
-//
-// Renders the user's input to p tag and appends to the search-list
-//
-  render() {
-    
-    return(
-      <div className="search">
-        <p className="users-search">{this.props.searchData}</p>          
-      </div>
-    );
-  }
-}
+
 
 
 ReactDOM.render(
