@@ -14,7 +14,6 @@ class SearchBoxPage extends React.Component {
 //
     this.state = {
       searches: [
-
         { id: 1, searchData: 'SearchData:'},
         { id: 2, searchData: 'Vidush'}
       ]
@@ -43,6 +42,29 @@ class SearchBoxPage extends React.Component {
 //   this._addSearch();
 // }
 //
+//{"lat":30.138116,"lng":-97.89232899999999}
+
+  _secondAjax(value){
+      let urlValue ='http://localhost:4000/searchcg?lat=30.48276099999998&lon=-97.6564032&rad=30';
+      $.ajax({
+        method:"GET",
+        url: urlValue,
+        data:{},
+        
+        success: (data) => {
+        console.log('Second success', data)
+        }
+      })
+  }
+        // let search = {
+        //   id: this.state.searches.length + 1,
+        //   searchData: JSON.stringify(results['location'])
+        // };
+        // this.setState({ 
+        //   searches: this.state.searches.concat([search])
+        // });
+
+
   _addSearch(value) {
     value = value.replace(" ", "");
     let urlValue = 'https://maps.googleapis.com/maps/api/geocode/json?address='+value+'&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk';
@@ -55,16 +77,11 @@ class SearchBoxPage extends React.Component {
         console.log('First success', data, results[0])
         //console.log('data', JSON.parse(data))
         console.log("data", JSON.stringify(results['location']))
-        let search = {
-          id: this.state.searches.length + 1,
-          searchData: JSON.stringify(results['location'])
-        };
-        this.setState({ 
-          searches: this.state.searches.concat([search])
-        });
+        this._secondAjax();
 
-           }
+      }
          })
+        console.log('are you running?');
   }
 
   _getSearches() {
@@ -122,9 +139,12 @@ class Search extends React.Component {
   }
 }
 
+
 ReactDOM.render(
   <SearchBoxPage />,  document.getElementById('app')
   );
+
+
 
 
 
