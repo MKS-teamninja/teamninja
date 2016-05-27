@@ -7,6 +7,19 @@ var Search = require('./search')
 //
 // The initial page component
 //
+class Camp extends React.Component {
+//
+// Renders the user's input to p tag and appends to the search-list
+//
+  render() {
+    
+    return(
+      <div className="search">
+        <p className="users-camp">{this.props.campData}</p>          
+      </div>
+    );
+  }
+}
 class SearchBoxPage extends React.Component {
   constructor() {
     super();
@@ -14,6 +27,7 @@ class SearchBoxPage extends React.Component {
 // TODO: Refactor for API response
 //
     this.state = {
+      campgrounds: [{id: 1, campData: 'Mark'}],
       searches: [
         { id: 1, searchData: 'SearchData:'},
         { id: 2, searchData: 'Vidush'}
@@ -24,26 +38,41 @@ class SearchBoxPage extends React.Component {
 // Renders the page
 //
   render() {
+    const campgrounds = this._getCampgrounds();
     const searches = this._getSearches();
     return (
       <div className='search-box'>
         <SearchList addSearch={this._addSearch.bind(this)} />
         <h3>Searches</h3>
-        <div className='seach-list'>
+        <div className='search-list'>
           {searches}
         </div>
+        <div className='campground-list'>
+          {campgrounds}
+        </div>        
       </div>
     );
+  }
+  _getCampgrounds() {
+  return this.state.campgrounds.map((camp) => {
+  return (<Camp
+            campData={camp.campData}
+            key={camp.id} />);
+  })
   }
 //
 //Gets campsite data
 //TODO refactor accept longitude and latitude values
-_secondAjax(value){
-      let urlValue ='http://localhost:4000/searchcg?lat=30.48276099999998&lon=-97.6564032&rad=30';
-      $.ajax({
-        method:"GET",
-        url: urlValue,
-        data:{},
+//{"lat":30.3587814,"lng":-97.9518524}
+  _secondAjax(value){
+        value = JSON.parse(value)
+        // console.log("value:", JSON.parse(value))
+        let urlValue ='http://localhost:4000/searchcg?lat='+value.lat+'&lon='+value.lng+'&rad=100';
+        console.log('urlValue:', urlValue)
+        $.ajax({
+          method:"GET",
+          url: urlValue,
+          data:{},
 //        
 // On success: prints campsite data to page then calls this.setState
 //
@@ -73,15 +102,14 @@ _secondAjax(value){
 // On success: consoles the long and lat, then calls this._secondAjax
 //      
        success: (data) => {
-        let results = data.results[0].geometry
-        console.log('First success', data, results[0])
+        let results = JSON.stringify(data.results[0].geometry.location)
+        console.log('First success', data, results)
         //console.log('data', JSON.parse(data))
-        console.log("data", JSON.stringify(results['location']))
-        this._secondAjax();
+        console.log("data", results)
+        this._secondAjax(results);
 
       }
          })
-        console.log('are you running?');
   }
 
   _getSearches() {
@@ -120,6 +148,22 @@ class SearchList extends React.Component {
 
     this._searchData.value = '';
     
+  }
+}
+
+class CampgroundList extends React.Component {
+
+  render (){
+    let allData = this.props.data;
+    let campgroundNodes = allData.map( campground => <div className='camp-details'><label>{campground.facility_name}</label> <label>{campground.facility_id}</label></div>);
+    return(
+      <div className='campground-box'>
+        <h2>Campgrounds</h2>
+        <div className='camp-list'>
+          {campgroundNodes}
+        </div>
+      </div>
+    )   
   }
 }
 
