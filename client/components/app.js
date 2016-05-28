@@ -16,6 +16,9 @@ class SearchBoxPage extends React.Component {
       searches: [
         { id: 1, searchData: 'Campground'}
       ],
+      campsites: [
+        { id: 1, campsite: 'Campsite Makersquare'}
+      ],
       showCampgroundList: false,
     };
   }
@@ -35,6 +38,25 @@ class SearchBoxPage extends React.Component {
       </div>
     );
   }
+//   - Example URL: http://localhost:4000/searchcs?cgId=820400
+
+_fetchCampSites(){
+  $.ajax({
+    method:"GET",
+    url: 'http://localhost:4000/searchcs?cgId=820400',
+    data:{},
+    success: (data) => {
+      console.log('campsites', data)
+      let campsite ={
+        id: this.state.campsites.length + 1,
+        campsite: JSON.stringify(data)
+      };
+      this.setState({
+        campsites: this.state.campsites.concat([campsite])
+      });
+    }
+  })
+}
 
 //
 //Gets campsite data
@@ -61,6 +83,7 @@ class SearchBoxPage extends React.Component {
           searches: this.state.searches.concat([search]),
           showCampgroundList: true,
         });
+        this._fetchCampSites();
         }
       })
   }
@@ -96,6 +119,19 @@ class SearchBoxPage extends React.Component {
     })
   }
 }
+// class Campsite extends React.Component ({
+// //
+// // Renders the user's input to p tag and appends to the search-list
+// //
+//   render() {
+    
+//     return(
+//       <div className="search">
+//         <p className="users-search">{this.props.searchData}</p>          
+//       </div>
+//     );
+//   }
+// })
 
 
 
