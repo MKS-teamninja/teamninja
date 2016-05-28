@@ -26,6 +26,7 @@ class SearchBoxPage extends React.Component {
 // Renders the page
 //
   render() {
+    const campsites = this._getCampsites();
     const searches = this._getSearches();
     return (
       <div className='search-box'>
@@ -34,11 +35,15 @@ class SearchBoxPage extends React.Component {
         <h3>Campgrounds</h3>
         <div className='campground-list'>
           {this.state.showCampgroundList ? <div className='campground-list'>{searches}</div> : null}
-        </div>        
+        </div>
+        <Campsite />
+        <h3>Campsites</h3>
+        <div className='campsite-list'>
+          {campsites}
+        </div>
       </div>
     );
   }
-//   - Example URL: http://localhost:4000/searchcs?cgId=820400
 
 _fetchCampSites(){
   $.ajax({
@@ -110,6 +115,13 @@ _fetchCampSites(){
       }
          })
   }
+  _getCampsites() {
+    return this.state.campsites.map((campsite) => {
+      return (<Campsite
+                campsite={campsite.campsite}
+                key={campsite.id} />);
+    })
+  }
 
   _getSearches() {
     return this.state.searches.map((search) => {
@@ -119,20 +131,48 @@ _fetchCampSites(){
     })
   }
 }
-// class Campsite extends React.Component ({
-// //
-// // Renders the user's input to p tag and appends to the search-list
-// //
-//   render() {
+class Campsite extends React.Component {
+//
+// Renders the user's input to p tag and appends to the search-list
+//
+  render() {
     
-//     return(
-//       <div className="search">
-//         <p className="users-search">{this.props.searchData}</p>          
-//       </div>
+    return(
+      <div className="campsite-list">
+        <p className="users-campsite">{this.props.campsite}</p>          
+      </div>
+    );
+  }
+}
+ 
+// class CampsiteList extends React.Component ({
+// //
+// // Creates the input element and button element
+// //
+//   render: function (){
+//     return (
+//       <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
+//         <div className='search-list-fields'>
+//           <input placeholder="Street City State" ref={(value) => this._searchData = value}/>
+//         </div>
+//         <div className='search-list-actions'>
+//           <button type='submit'>
+//             submit
+//           </button>
+//         </div>
+//       </form>
 //     );
-//   }
-// })
+//   },
+  
+  // _handleSubmit: function(e) {
+  //   e.preventDefault();
 
+  //   this.props.addSearch(this._searchData.value);
+
+  //   this._searchData.value = '';
+
+    
+  // }
 
 
 
