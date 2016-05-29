@@ -1,0 +1,9 @@
+span {
+  clear: left;
+  float: left;
+  display: inline;
+}
+
+body {
+	background-color: #9ecbd2;
+}
