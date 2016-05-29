@@ -115,6 +115,10 @@ _fetchCampSites(){
         console.log("data", results)
         this._fetchCampData(results);
 
+      },
+      error: function (status, error) {
+        console.log('google query error')
+        alert('Google query error', error);
       }
          })
   }
