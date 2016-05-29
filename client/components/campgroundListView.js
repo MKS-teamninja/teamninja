@@ -4,8 +4,8 @@ var React = require('react');
 var CampgroundList = React.createClass ({
   render: function () {
     return (
-      <form className='campground-list' >
-      </form>
+      <ul className='campground-list' >
+      </ul>
     );
   }
   

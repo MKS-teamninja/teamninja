@@ -5,7 +5,7 @@ SearchList = React.createClass ({
 //
   render: function (){
     return (
-      <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
+      <form className='search-list' onSubmit={(value) => this._handleSubmit(value)}>
         <div className='search-list-fields'>
           <input placeholder="Street City State" ref={(value) => this._searchData = value}/>
         </div>

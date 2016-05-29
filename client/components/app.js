@@ -14,13 +14,13 @@ class SearchBoxPage extends React.Component {
     super();
     this.state = {
       searches: [
-        { id: 1, searchData: 'Campground'}
       ],
       campsites: [
-        { id: 1, campsite: 'Campsite Makersquare'}
       ],
       showCampgroundList: false,
+
     };
+    this._addSearch =this._addSearch.bind(this);
   }
 //
 // Renders the page
@@ -28,23 +28,25 @@ class SearchBoxPage extends React.Component {
   render() {
     const campsites = this._getCampsites();
     const searches = this._getSearches();
+    console.log("searches ln 33 app.js:", searches)
     return (
       <div className='search-box'>
-        <SearchList addSearch={this._addSearch.bind(this)} />
+        <SearchList addSearch={this._addSearch} />
         <CampgroundList />
         <h3>Campgrounds</h3>
         <div className='campground-list'>
           {this.state.showCampgroundList ? <div className='campground-list'>{searches}</div> : null}
         </div>
         <Campsite />
-        <h3>Campsites</h3>
         <div className='campsite-list'>
           {campsites}
         </div>
       </div>
     );
   }
-
+//
+//Gets campsites data
+//
 _fetchCampSites(){
   $.ajax({
     method:"GET",
@@ -64,11 +66,10 @@ _fetchCampSites(){
 }
 
 //
-//Gets campsite data
+//Gets campground data
 //
   _fetchCampData(value){
         value = JSON.parse(value)
-        // console.log("value:", JSON.parse(value))
         let urlValue ='http://localhost:4000/searchcg?lat='+value.lat+'&lon='+value.lng+'&rad=100';
         console.log('urlValue:', urlValue)
         $.ajax({
@@ -79,10 +80,12 @@ _fetchCampSites(){
 // On success: prints campsite data to page then calls this.setState
 //
         success: (data) => {       
-        console.log('Second success', data)
         let search = {
           id: this.state.searches.length + 1,
-          searchData: JSON.stringify(data)
+          searchData: data.map((data) => {
+            return JSON.stringify(data.facility_name)
+          })
+
         };
         this.setState({ 
           searches: this.state.searches.concat([search]),
@@ -145,34 +148,6 @@ class Campsite extends React.Component {
   }
 }
  
-// class CampsiteList extends React.Component ({
-// //
-// // Creates the input element and button element
-// //
-//   render: function (){
-//     return (
-//       <form className='search-list' onSubmit={this._handleSubmit.bind(this)}>
-//         <div className='search-list-fields'>
-//           <input placeholder="Street City State" ref={(value) => this._searchData = value}/>
-//         </div>
-//         <div className='search-list-actions'>
-//           <button type='submit'>
-//             submit
-//           </button>
-//         </div>
-//       </form>
-//     );
-//   },
-  
-  // _handleSubmit: function(e) {
-  //   e.preventDefault();
-
-  //   this.props.addSearch(this._searchData.value);
-
-  //   this._searchData.value = '';
-
-    
-  // }
 
 
 
