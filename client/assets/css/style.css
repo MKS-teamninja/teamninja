@@ -1,0 +1,17 @@
+
+#map {
+width: 500px;
+height: 400px;
+background-color: #CCC;
+}
+
+
+span {
+  clear: left;
+  float: left;
+  display: inline;
+}
+
+body {
+	background-color: #9ecbd2;
+}
