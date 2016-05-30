@@ -12,6 +12,7 @@
   "dependencies": {
     "bluebird": "^3.2.2",
     "body-parser": "^1.14.1",
+    "bootstrap": "^3.3.6",
     "browserify-middleware": "^5.0.2",
     "express": "^4.12.4",
     "jquery": "^2.2.4",

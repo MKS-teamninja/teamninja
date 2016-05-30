@@ -32,18 +32,23 @@ class SearchBoxPage extends React.Component {
     console.log("searches ln 33 app.js:", searches)
     let campgrounds = this.state.data;
     return (
-      <div className='search-box'>
-        <SearchList addSearch={this._addSearch} />
-        <div className='campground-list'>
-          {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} /> : null}
-        </div>
-        <Campsite />
-        <div className='campsite-list'>
-          {campsites}
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='search-box'>
+            <div className='col-md-12'>
+              <SearchList addSearch={this._addSearch} />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-md-4'>
+              {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} /> : null}
+            </div>
+          </div>
         </div>
       </div>
     );
   }
+
     // state changes on submit button click 
 
   _handleSubmit(e) {
@@ -165,10 +170,10 @@ class CampgroundList1 extends React.Component {
     let campgroundNodes = allData.map(function(campground){
       let photo = "http://reserveamerica.com" + campground.facility_photo_url;
       console.log('photo', photo);
-      return <div className='camp-details'><label><img src={photo} />{campground.facility_name}</label></div>;
+      return <div className='camp-details row'><img src={photo} /><label>{campground.facility_name}</label></div>;
     });
     return(
-      <div className='campground-box'>
+      <div className='campground-list'>
         <h2>Campgrounds</h2>
         <div className='camp-list'>
           {campgroundNodes}
