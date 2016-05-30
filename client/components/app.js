@@ -162,7 +162,11 @@ class CampgroundList1 extends React.Component {
 
   render (){
     let allData = this.props.data;
-    let campgroundNodes = allData.map( campground => <div className='camp-details'><label>{campground.facility_name}</label> <label>{campground.facility_id}</label></div>);
+    let campgroundNodes = allData.map(function(campground){
+      let photo = "http://reserveamerica.com" + campground.facility_photo_url;
+      console.log('photo', photo);
+      return <div className='camp-details'><label><img src={photo} />{campground.facility_name}</label></div>;
+    });
     return(
       <div className='campground-box'>
         <h2>Campgrounds</h2>
