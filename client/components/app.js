@@ -13,6 +13,7 @@ class SearchBoxPage extends React.Component {
   constructor() {
     super();
     this.state = {
+      data: [],
       searches: [
       ],
       campsites: [
@@ -29,13 +30,12 @@ class SearchBoxPage extends React.Component {
     const campsites = this._getCampsites();
     const searches = this._getSearches();
     console.log("searches ln 33 app.js:", searches)
+    let campgrounds = this.state.data;
     return (
       <div className='search-box'>
         <SearchList addSearch={this._addSearch} />
-        <CampgroundList />
-        <h3>Campgrounds</h3>
         <div className='campground-list'>
-          {this.state.showCampgroundList ? <div className='campground-list'>{searches}</div> : null}
+          {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} /> : null}
         </div>
         <Campsite />
         <div className='campsite-list'>
@@ -44,6 +44,23 @@ class SearchBoxPage extends React.Component {
       </div>
     );
   }
+    // state changes on submit button click 
+
+  _handleSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    let campgrounds = this._getCampgrounds();
+    this.setState({showCampgroundList: true});
+    let newData = campgrounds;
+    this.setState({data: newData});
+  }
+
+  // Hard coded server response data
+
+  _getCampgrounds(data){
+    this.setState({data: data});
+  }
+
 //
 //Gets campsites data
 //
@@ -79,7 +96,8 @@ _fetchCampSites(){
 //        
 // On success: prints campsite data to page then calls this.setState
 //
-        success: (data) => {       
+        success: (data) => {
+        this._getCampgrounds(data);       
         let search = {
           id: this.state.searches.length + 1,
           searchData: data.map((data) => {
@@ -89,7 +107,7 @@ _fetchCampSites(){
         };
         this.setState({ 
           searches: this.state.searches.concat([search]),
-          showCampgroundList: true,
+          showCampgroundList: true
         });
         this._fetchCampSites();
         }
@@ -138,6 +156,24 @@ _fetchCampSites(){
     })
   }
 }
+// Display Campground List
+
+class CampgroundList1 extends React.Component {
+
+  render (){
+    let allData = this.props.data;
+    let campgroundNodes = allData.map( campground => <div className='camp-details'><label>{campground.facility_name}</label> <label>{campground.facility_id}</label></div>);
+    return(
+      <div className='campground-box'>
+        <h2>Campgrounds</h2>
+        <div className='camp-list'>
+          {campgroundNodes}
+        </div>
+      </div>
+    )   
+  }
+}
+
 class Campsite extends React.Component {
 //
 // Renders the user's input to p tag and appends to the search-list

@@ -25,6 +25,11 @@ SearchList = React.createClass ({
 
     this._searchData.value = '';
 
+    let campgrounds = this._getCampgrounds();
+    this.setState({showCampgroundList: true});
+    let newData = campgrounds;
+    this.setState({data: newData});
+
     
   }
 })

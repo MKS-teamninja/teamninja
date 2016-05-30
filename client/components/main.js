@@ -51,7 +51,7 @@ class SearchBoxPage extends React.Component {
   }
   // Hard coded server response data
 
-  _getCampgrounds(){
+  _getCampgrounds(searches){
     const campgroundsList = [
     {
       "campground_id": 14,
