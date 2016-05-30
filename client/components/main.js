@@ -230,8 +230,7 @@ class SearchBoxPage extends React.Component {
     let location = this._location;
     this.setState({showCampgroundList: true});
     this.setState({showCampgroundMap: true});
-    let newData = campgrounds;
-    this.setState({data: newData});
+    this.setState({data: campgrounds});
   }
 }
 
