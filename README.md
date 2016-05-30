@@ -2,7 +2,7 @@
 OffTheGrid Campground Finder
 (MKS36 Team Ninja Greenfield Project)
 
-OffTheGrid is a campground search app that facilitates locating campground info from anywhere in the US (though currently only Texas). Whether you want to find campgrounds near your or near a specific location, this app will find them all and show you any relevant info you might need to help you get as far off the grid as you want.
+OffTheGrid is a campground search app that facilitates locating campground info from anywhere in the US (currently limited to only Texas). Whether you want to find campgrounds near your or near a specific location, this app will find them all and show you any relevant info you might need to help you get as far off the grid as you want.
 
 Getting Started
 
@@ -37,20 +37,36 @@ Since this project is still in early development stages, there isn't yet a test 
 Built With
 
 Node JS
+SQLite3
 Express
 React JS
-SQLite3
-
+Bootstrap
 
 Project management:
 
 [![Stories in Ready](https://badge.waffle.io/MKS-teamninja/teamninja.png?label=ready&title=Ready)](http://waffle.io/MKS-teamninja/teamninja)
 
+API Reference:
+
+  Backend APIs to collect campground and campsites
+
+- Campground Search API:
+  http://developer.active.com/docs/read/Campground_Search_API
+- Campsite Search API:
+- http://developer.active.com/docs/read/Campsite_Search_API
+
+  Front-end APIs to geocode user input and map campgrounds
+
+- Google Maps Geocoding API:
+  https://developers.google.com/maps/documentation/geocoding/intro#Geocoding
+- Google Maps Javascript API:
+  https://developers.google.com/maps/documentation/javascript/3.exp/reference#experimental-version
+
 Contributing
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
-Original Authors
+Authors
 
 Mark Boraski (Product Owner) - https://github.com/orgs/MKS-teamninja/people/SpartanSOS
 

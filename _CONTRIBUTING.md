@@ -41,8 +41,6 @@
 
 
 
-
-
 ## Detailed Workflow
 
 ### Cut a namespaced feature branch from master
