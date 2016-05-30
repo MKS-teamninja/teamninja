@@ -8,13 +8,13 @@ Getting Started
 
 Basic code flow:
 
-We query Active.com's Campground and Campsite search APIs and filter/format/store all the relevant data on our backend using a SQLite3 database adapter through the Node.js KNEX library.
+In the backend, a worker queries Active.com's Campground and Campsite search APIs and filter/format/store all the relevant data on our backend using a SQLite3 database adapter through the Node.js KNEX library.
 
 The front-end accepts user input (search location), geocodes this data using Google Maps Geocode API, and then sends the resulting latitude/longitude as well as search radius to the backend.
 
-The backend then queries the database for all saved campgrounds retrieved by the worker. It then filters the campground list so that only the ones within the given search radius are returned.
+The backend web server then queries the database for all saved campgrounds retrieved by the worker. It then filters the campground list so that only the ones within the given search radius are returned.
 
-Using this response info, the frontend displays the desirable data in a user-friendly list view, as well as generates a map plotting the locations of these campgrounds.
+Using this response info, the frontend displays the desirable data in a user-friendly list view, and also generates a map plotting the locations of the campground set. Users can toggle between campground list view and campsite list view if they want more details on individual campsites within a clicked campground.
 
 Installing the codebase:
 
@@ -45,6 +45,25 @@ Bootstrap
 Project management:
 
 [![Stories in Ready](https://badge.waffle.io/MKS-teamninja/teamninja.png?label=ready&title=Ready)](http://waffle.io/MKS-teamninja/teamninja)
+
+Project TODO:
+
+Backend:
+
+- Note: The backend is already feature complete. The only improvement necessary would be to schedule worker/cggrabber.js to run periodically using a process scheduler. Another important change would be to swap out the sqlite3 adapter currently configured in our knexfile to instead use postgreSQL. Since Heroku (our desired deployment environment) doesn't have a sqlite3 plugin, the DB must be switched to use postgres instead. None of the actual db build/query code should need to be changed.
+
+Frontend:
+
+- Add Map view to display a separate tab displaying a map of plotted campgrounds
+- Add campsite view. This feature would potentially toggle a new view when a campground is clicked and display info for all campsites in that campground. This information is retrievable by querying the /searchcs endpoint on the backend and providing the campground ID.
+- Display additional campground info in the list view, showing
+  available amenities, waterfront (if availble), etc.
+- Additional frontend styling for user-friendliness.
+
+Cleanup:
+
+- Break out app.js code into provided component files.
+- Delete any deprecated, unused code.
 
 API Reference:
 
