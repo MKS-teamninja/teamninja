@@ -1,9 +1,59 @@
 span {
-  clear: left;
-  float: left;
-  display: inline;
+    clear: left;
+    float: left;
+    display: inline;
+}
+.app{
+
 }
 
 body {
-	background-color: #9ecbd2;
+    background-color: #9ecbd2;
+}
+
+
+.search-box {
+
+}
+
+.search-list-fields input {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing:border-box;
+
+
+}
+
+.search-list-actions button {
+    background-color: #4CAF50;
+    border:none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+.camp-details label {
+    font: bold 100% "Arial";
+    color: #464646;
+    display:block;
+    width:50%;
+    height: 31px;
+    position: relative;
+}
+
+.campground-list{
+
+}
+
+.search{
+
+}
+
+.campground{
+
 }
