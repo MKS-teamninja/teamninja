@@ -58,7 +58,7 @@ class SearchBoxPage extends React.Component {
     _fetchCampSites() {
         $.ajax({
             method: "GET",
-            url: 'http://localhost:4000/searchcs?cgId=820400',
+            url: '/searchcs?cgId=820400',
             data: {},
             success: (data) => {
                 console.log('campsites', data);
@@ -80,7 +80,7 @@ class SearchBoxPage extends React.Component {
         console.log(value);
         value = JSON.parse(value);
 
-        let urlValue = 'http://localhost:4000/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
+        let urlValue = '/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
         console.log('urlValue:', urlValue);
         $.ajax({
             method: "GET",
