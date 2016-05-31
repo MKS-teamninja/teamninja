@@ -10,16 +10,15 @@ describe("The Server", function() {
   app.testReady()
 
   it_("serves an example endpoint", function * () {
+    this.timeout(5000);
 
     //
     // Notice how we're in a generator function (indicated by the the *)
     // See test/test-helper.js for details of why this works.
     //
     yield request(app)
-      .get('/api/tags-example')
+      .get('/app-bundle.js')
+      .expect('Content-Type',/javascript/)
       .expect(200)
-      .expect(function(response) {
-        expect(response.body).to.include('node')
-      })
   })
 })
