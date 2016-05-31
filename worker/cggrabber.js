@@ -59,7 +59,7 @@ var collectCampgrounds = function() {
   var campgrounds = {
     uri: 'http://api.amp.active.com/camping/campgrounds?pstate=TX',
     qs: {
-      api_key: cfg.getCgApiKey()
+      api_key: process.env.getCgApiKey || cfg.getCgApiKey()
     },
     headers: {
       'User-Agent': 'request-promise'
