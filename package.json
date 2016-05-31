@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/ --ignore client/",
+    "postinstall": "node worker/cggrabber.js",
     "test": "./test/run.sh"
   },
   "author": "Gilbert <gilbertbagrza@gmail.com>",

@@ -16,6 +16,11 @@ module.exports = {
     connection: "postgres://campgrounds:campgrounds@localhost/campgrounds"
   },
 
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL
+  },
+
   test: {
     client: 'sqlite3',
     connection: {
