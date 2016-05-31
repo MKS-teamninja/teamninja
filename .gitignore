@@ -5,3 +5,4 @@ reference.js
 build/
 dist/
 config.js
+*.DS_Store
