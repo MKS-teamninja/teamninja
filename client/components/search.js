@@ -14,6 +14,6 @@ var Search = React.createClass ({
       </div>
     );
   }
-})
+});
 
 module.exports = Search;

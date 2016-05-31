@@ -9,7 +9,7 @@ var CampgroundList = React.createClass ({
     );
   }
   
-})
+});
 
 module.exports = CampgroundList;
 

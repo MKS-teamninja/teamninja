@@ -27,11 +27,10 @@ SearchList = React.createClass ({
 
     let campgrounds = this._getCampgrounds();
     this.setState({showCampgroundList: true});
-    let newData = campgrounds;
-    this.setState({data: newData});
+    this.setState({data: campgrounds});
 
     
   }
-})
+});
 
 module.exports = SearchList;
