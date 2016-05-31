@@ -1,3 +1,4 @@
+"use strict";
 //
 // Child component of SearchBoxPage
 //

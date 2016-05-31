@@ -135,7 +135,9 @@ class SearchBoxPage extends React.Component {
            getLocation();
            }
         else {
-            let urlValue = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + value + '&key= AIzaSyBHsN_BNT1GLrArFLeiNwkL6TJX7rmR3Lk';
+            // get a google server api key
+            // and plug in with line 140 at &key=
+            let urlValue = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + value + '&key= ';
             $.ajax({
                 method: "GET",
                 url: urlValue,
