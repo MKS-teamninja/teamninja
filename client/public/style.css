@@ -4,9 +4,13 @@ span {
     display: inline;
 }
 .app{
-
+  overflow:auto;
 }
-
+.holder {
+    padding-left:10pt;
+    border-style: none;
+    overflow: hidden;
+}
 
 body {
     background-color: #9ecbd2;
@@ -14,11 +18,12 @@ body {
     background-image: url("http://67.media.tumblr.com/tumblr_m7k4t8IFYi1rvlag0o1_500.gif");
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x: hidden;
 }
-
 
 .search-box {
     display: inline-block;
+    overflow:auto;
 }
 
 .search-list-fields input {
@@ -39,11 +44,14 @@ body {
     font-size: 16px;
 
 }
+.dontoverflow{
+    overflow:auto;
+}
 
 .camp-details {
     border-bottom-style: solid;
     border-bottom-width: 2px;
-    border-bottom-color: 000000;
+    border-bottom-color: #000000;
     width: 100%;
     padding: 0px;
     margin: 0px;
@@ -66,18 +74,14 @@ body {
 .campground-list{
     border-style: solid;
     border-width: 4px;
-    border-color: 000000;
+    border-color: #000000;
     margin:0px;
-    background-color: darkred;
+    background-color: white;
     width: 100%;
     min-width: 400px;
-}
-
-
-.search{
+    overflow: auto;
+    max-height:100%;
 
 }
 
-.campground{
 
-}
