@@ -4,7 +4,10 @@
 // Campground grabber queries the campground API
 // and regenerates the campground database.
 //
-// var cfg = require('../config');
+var env = process.env.NODE_ENV || 'development';
+if (env!=="production"){
+  var cfg = require('../config');
+}
 var db = require('../db/db');
 var _ = require('underscore');
 var camp = require('./cghelpers');
