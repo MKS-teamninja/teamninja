@@ -4,4 +4,4 @@ bower_components/
 reference.js
 build/
 dist/
-config.js
+./config.js
