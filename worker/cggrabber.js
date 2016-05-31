@@ -104,7 +104,7 @@ var queryCampsites = function(cg) {
   var campsite = {
     uri: campsitesUrl,
     qs: {
-      api_key: cfg.getCgApiKey()
+      api_key:  process.env.getCgApiKey || cfg.getCgApiKey()
     },
     headers: {
       'User-Agent': 'request-promise'
