@@ -30,15 +30,17 @@ describe("serving assests", function() {
         expect(response.res.text.startsWith('<html>'));
       })
   });
-  //don't need promisified version
-  it("serve up index", function(done) {
-    request(app)
-      .get('/snothing')
-      .expect(function(response){
-        expect(response.res.text.startsWith('<html>'));
-      })
-      .expect(200, done)
-  });
+  // don't need promisified version
+  // we also determined in the test env not to use the catch all route
+  // otherwise it may send 200 response code for wrong reason/url endpoint
+  // it("serve up index", function(done) {
+  //   request(app)
+  //     .get('/snothing')
+  //     .expect(function(response){
+  //       expect(response.res.text.startsWith('<html>'));
+  //     })
+  //     .expect(200, done)
+  // });
 });
 
 describe("Server API call will fetch from database and return JSON", function() {
