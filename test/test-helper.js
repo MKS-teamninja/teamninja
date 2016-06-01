@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test'
+process.env.PORT=9000;
 
 // The following allows you to require files independent of
 // the location of your test file.
@@ -32,7 +33,7 @@ var express = require('express')
 
 TestHelper.createApp = function (loader) {
   var app = express()
-  app.use(require('body-parser').json())
+  app.use(require('body-parser').json());
 
   app.testReady = function () {
     // Log all errors
