@@ -23,7 +23,6 @@ describe("serving assests", function() {
   });
 
   it_("serve up index", function * () {
-    this.timeout(5000);
     yield request(app)
       .get('/')
       .expect(200)
@@ -49,7 +48,6 @@ describe("Server API call will fetch from database and return JSON", function() 
   app.testReady()
 
   it_("get back json searching cs by cgId, cgId=820400", function * () {
-    this.timeout(5000);
     yield request(app)
       .get('/searchcs?cgId=820400')
       .expect('Content-Type',/application\/json/)
@@ -61,7 +59,6 @@ describe("Server API call will fetch from database and return JSON", function() 
       })
   });
   it_("get back json searching campgrounds by lat/lon", function * () {
-    this.timeout(5000);
     yield request(app)
       .get('/searchcg?lat=30.482761&lon=-97.6564032&rad=20')
       .expect('Content-Type',/application\/json/)
