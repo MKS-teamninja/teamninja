@@ -78,7 +78,7 @@ routes.get('/searchcs', function (req, res) {
   })
 })
 
-if (process.env.NODE_ENV = 'test'){
+if (process.env.NODE_ENV === 'test'){
   //export route for testing
   module.exports = routes
 }else{
