@@ -72,4 +72,27 @@ describe("Server API call will fetch from database and return JSON", function() 
         expect(json[3].campground_id,95);
       })
   });
+  it_("get back empty array searching campgrounds by lat/lon outside TX", function * () {
+    yield request(app)
+      .get('/searchcg?lat=39.482761&lon=-107.6564032&rad=20')
+      .expect('Content-Type',/application\/json/)
+      .expect(200)
+      .expect(function(response){
+        var json = response.res.body;
+        expect(Array.isArray(json),true);
+        expect(json.length,0);
+      })
+  });
+  it_("get back empty array searching cs by cgId with non exisiting cgId, cgId=75255", function * () {
+    yield request(app)
+      .get('/searchcs?cgId=75455')
+      .expect('Content-Type',/application\/json/)
+      .expect(200)
+      .expect(function(response){
+        var json = response.res.body;
+        expect(Array.isArray(json),true);
+        expect(json.length,0);
+      })
+  });
+
 });
