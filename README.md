@@ -36,7 +36,7 @@ npm start
 ```
 node worker/cggrabber.js
 ```
-*by default the worker populate development database. To populate testing database before running tests, run *
+*by default the worker populate development database. To populate testing database before running tests, run*
 ```
 export NODE_ENV='test'
 node worker/cggrabber.js
