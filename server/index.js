@@ -51,9 +51,9 @@ routes.use(express.static(assetFolder))
 //   http://localhost:4000/searchcg?lat=30.48276099999998&lon=-97.6564032&rad=30
 //
 routes.get('/searchcg', function (req, res) {
-  console.log("Request lat: ", req.query.lat);
-  console.log("Request lon: ", req.query.lon);
-  console.log("Request rad: ", req.query.rad);
+  // console.log("Request lat: ", req.query.lat);
+  // console.log("Request lon: ", req.query.lon);
+  // console.log("Request rad: ", req.query.rad);
   db.queryCampgrounds()
     .then(function(cgs) {
       var filtered = helpers.cgFilter(cgs, req.query.lat, req.query.lon, req.query.rad);
@@ -70,7 +70,7 @@ routes.get('/searchcg', function (req, res) {
 //   http://localhost:4000/searchcs?cgId=820400
 //
 routes.get('/searchcs', function (req, res) {
-  console.log("Requested campground ID: ", req.query.cgId);
+  // console.log("Requested campground ID: ", req.query.cgId);
   db.queryCampsites(req.query.cgId)
     .then(function(cs) {
       // console.log("Campsites in campground #" + req.query.cgId + ": ", cs);
