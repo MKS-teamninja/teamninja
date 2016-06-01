@@ -5,11 +5,11 @@ var routes = require(__server + '/index.js')
 
 describe("The Server", function() {
 
-  var app = TestHelper.createApp()
+  var app = TestHelper.createApp();
   app.use('/', routes)
   app.testReady()
 
-  it_("serves an example endpoint", function * () {
+  it_("serves app-bundle.js", function * () {
     this.timeout(5000);
 
     //
@@ -20,5 +20,24 @@ describe("The Server", function() {
       .get('/app-bundle.js')
       .expect('Content-Type',/javascript/)
       .expect(200)
-  })
+  });
+
+  it_("serve up index", function * () {
+    this.timeout(5000);
+    yield request(app)
+      .get('/')
+      .expect(200)
+      .expect(function(response){
+        expect(response.res.text.startsWith('<html>'));
+      })
+  });
+  //don't need promisified version
+  it("serve up index", function(done) {
+    request(app)
+      .get('/snothing')
+      .expect(function(response){
+        expect(response.res.text.startsWith('<html>'));
+      })
+      .expect(200, done)
+  });
 })
