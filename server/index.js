@@ -24,6 +24,7 @@ var helpers = require('./helpers');
 var xmlParse = require('xml2js').parseString;
 var db = require('../db/db');
 
+
 var routes = express.Router()
 
 //
@@ -74,8 +75,13 @@ routes.get('/searchcs', function (req, res) {
   db.queryCampsites(req.query.cgId)
     .then(function(cs) {
       // console.log("Campsites in campground #" + req.query.cgId + ": ", cs);
-      res.status(200).send(cs);
-  })
+      return cs.sort(function(a,b){
+        return a.campsite_id - b.campsite_id
+      })
+    })
+    .then(function(cs){
+      return res.status(200).send(cs)
+    })
 })
 
 if (process.env.NODE_ENV === 'test'){
