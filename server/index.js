@@ -120,10 +120,18 @@ if (process.env.NODE_ENV === 'test'){
       counter--;
       io.emit('connected', counter);
     })
+    socket.on('clickedCampground', function(campground){
+      broadcastLastCampsite(campground.facility_name)
+    })
   });
+
+
   var broadcastLastCampsite = function(campsite){
     io.sockets.emit("lastViewed", campsite)
   }
+
+
+
   http.listen(port)
   console.log("Listening on port", port)
 }

@@ -22,18 +22,11 @@
 <script>
   var socket = io();
   socket.on('connected', function(counter){
-    $('#messages').text("there are " + counter + " people online")
+    $('#messages').text("there are " + counter + " people online");
   });
-  socket.on('lastViewed', function(){
-  	alert('hi');
-    $('#lastViewed').text("Someone just viewed " )
+  socket.on('lastViewed', function(campsite){
+    $('#lastViewed').text("Someone just viewed " + campsite );
   });
-  $(document).ready(function(){
-	  $('.camp-details').on('click', function(){
-	  	alert("click");
-	  })
-  })
-
 </script>
 </body>
 </html>
