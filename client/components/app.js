@@ -204,8 +204,12 @@ class CampgroundList1 extends React.Component {
         sewer = Icons.sewer;
       }
       return (<div className='camp-details row'>
-                  <img className='campsitePhoto' src={photo}/>
-                  <label>{campground.facility_name}</label>
+                  <div className="campgroundPhoto">
+                    <img className="campgroundPic" src={photo}/>
+                  </div>
+                  <div className="campgroundName">
+                    <label>{campground.facility_name.toUpperCase()}</label>
+                  </div>
                   <div className='amenities'>
                     <img src={water}/>
                     <img src={pets}/>
@@ -246,7 +250,7 @@ class CampgroundsMap extends React.Component {
     let allData = this.props.data;
     let centerLatLon = this.props.center;
     let campgroundNodes = allData.map((campground, key) => {
-      console.log('Campground-data', campground);
+      // console.log('Campground-data', campground);
       return (<Marker
               key = {key}
               lat = {Number(campground.latitude)}
@@ -259,8 +263,9 @@ class CampgroundsMap extends React.Component {
     console.log('Broken?', centerLatLon);
     console.log(campgroundNodes);
       return (<Gmaps
-                  width={'800px'}
-                  height={'600px'}
+                  className={'gMap'}
+                  width={'40em'}
+                  height={'40em'}
                   lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
                   lng={centerLatLon.lon}
                   zoom={8}
@@ -271,8 +276,9 @@ class CampgroundsMap extends React.Component {
     } else {
       console.log('fell through');
       return (<Gmaps            
-              width={'800px'}
-              height={'600px'}
+              className={'gMap'}
+              width={'40em'}
+              height={'40em'}
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
               zoom={12}
