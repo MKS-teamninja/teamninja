@@ -15,7 +15,7 @@ span {
 body {
     background-color: #9ecbd2;
     text-align: center;
-    background-image: url("http://67.media.tumblr.com/tumblr_m7k4t8IFYi1rvlag0o1_500.gif");
+    background-image: url('https://4.bp.blogspot.com/-e-LMO43WW6g/VJB2FxL31UI/AAAAAAABZjY/rnaCW7GLPiw/s0/Camping%2Bin%2Bthe%2Bwoods%2BUHD.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-x: hidden;
@@ -81,6 +81,9 @@ body {
     min-width: 400px;
     overflow: auto;
     max-height:100%;
+}
+
+.campsitePhoto{
 
 }
 
