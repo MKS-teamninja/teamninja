@@ -10,6 +10,7 @@ var $ = require('jquery');
 var Search = require('./search');
 var SearchList = require('./searchlist');
 var CampgroundList = require('./campgroundListView');
+var Icons = require('../assets/icons.js');
 //
 // The initial page component
 //
