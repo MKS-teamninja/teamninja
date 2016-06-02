@@ -203,25 +203,22 @@ class CampgroundList1 extends React.Component {
       if ( campground.sewer === 1){
         sewer = Icons.sewer;
       }
-      return  
-        <div className='camp-details row'>
-          <img className='campsitePhoto' src={photo}/>
-          <label>{campground.facility_name}</label>
-          <div className='amenities'>
-            <img src={water}/>
-            <img src={pets}/>
-            <img src={sewer}/>
-          </div>
-        </div>
+      return (<div className='camp-details row'>
+                  <img className='campsitePhoto' src={photo}/>
+                  <label>{campground.facility_name}</label>
+                  <div className='amenities'>
+                    <img src={water}/>
+                    <img src={pets}/>
+                    <img src={sewer}/>
+                  </div>
+                </div>)
     });
-    return (
-      <div className='campground-list '>
-        <h2>Campgrounds</h2>
-        <div className='camp-list'>
-          {campgroundNodes}
-        </div>
-      </div>
-    )
+    return (<div className='campground-list '>
+              <h2>Campgrounds</h2>
+              <div className='camp-list'>
+                {campgroundNodes}
+              </div>
+            </div>)
   }
 }
 
@@ -250,38 +247,37 @@ class CampgroundsMap extends React.Component {
     let centerLatLon = this.props.center;
     let campgroundNodes = allData.map((campground, key) => {
       console.log('Campground-data', campground);
-      return <Marker
-        key = {key}
-        lat = {Number(campground.latitude)}
-        lng = {Number(campground.longitude)}
-        draggable = {false}
-        onClick = {this._onClickSayHello} />
+      return (<Marker
+              key = {key}
+              lat = {Number(campground.latitude)}
+              lng = {Number(campground.longitude)}
+              draggable = {false}
+              onClick = {this._onClickSayHello} />)
     })
 
     if(centerLatLon){
-    console.log(centerLatLon);
-      return 
-        <Gmaps
-          width={'800px'}
-          height={'600px'}
-          lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
-          lng={centerLatLon.lon}
-          zoom={12}
-          mapTypeId={"roadmap"}
-          params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}}>
-            {campgroundNodes}
-        </Gmaps>
+    console.log('Broken?', centerLatLon);
+    console.log(campgroundNodes);
+      return (<Gmaps
+                  width={'800px'}
+                  height={'600px'}
+                  lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
+                  lng={centerLatLon.lon}
+                  zoom={8}
+                  mapTypeId={"roadmap"}
+                  params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}}>
+                    {campgroundNodes}
+                </Gmaps>)
     } else {
       console.log('fell through');
-      return <Gmaps            
-        width={'800px'}
-        height={'600px'}
-        lat={30.268} //30.2689147,"lng":-97.7403779
-        lng={-97.740}
-        zoom={12}
-        mapTypeId={"satellite"}
-        params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}}>
-      </Gmaps>
+      return (<Gmaps            
+              width={'800px'}
+              height={'600px'}
+              lat={30.268} //30.2689147,"lng":-97.7403779
+              lng={-97.740}
+              zoom={12}
+              mapTypeId={"satellite"}
+              params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}} />)
     }
   }
 
@@ -307,7 +303,3 @@ class Campsite extends React.Component {
 ReactDOM.render(
   <SearchBoxPage />, document.getElementById('app')
 );
-
-
-
-
