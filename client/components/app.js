@@ -263,8 +263,9 @@ class CampgroundsMap extends React.Component {
     console.log('Broken?', centerLatLon);
     console.log(campgroundNodes);
       return (<Gmaps
-                  width={'800px'}
-                  height={'600px'}
+                  className={'gMap'}
+                  width={'40em'}
+                  height={'40em'}
                   lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
                   lng={centerLatLon.lon}
                   zoom={8}
@@ -275,8 +276,9 @@ class CampgroundsMap extends React.Component {
     } else {
       console.log('fell through');
       return (<Gmaps            
-              width={'800px'}
-              height={'600px'}
+              className={'gMap'}
+              width={'40em'}
+              height={'40em'}
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
               zoom={12}
