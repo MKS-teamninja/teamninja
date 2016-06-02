@@ -122,6 +122,9 @@ if (process.env.NODE_ENV === 'test'){
     })
     socket.on('clickedCampground', function(campground){
       broadcastLastCampsite(campground.facility_name)
+    });
+    socket.on('askConnectionNumber', function(){
+      socket.emit('returnConnectionNumber', counter)
     })
   });
 

@@ -29,9 +29,11 @@ class SearchBoxPage extends React.Component {
     render() {
         let campgrounds = this.state.data;
         return (
+            
             <div >
                 <div className='row row-horizon'>
                     <div className='search-box'>
+                        <Connections />
                         <div className='col-md-12'>
                             <SearchList addSearch={this._addSearch}/>
                         </div>
@@ -205,6 +207,32 @@ class Campsite extends React.Component {
         );
     }
 }
+
+var Connections = React.createClass({
+    getInitialState:function(){
+        return {connectionNumber:1}
+    },
+    render:function(){
+        return (
+            <div className="connection">
+                <p> Number of user online : {this.state.connectionNumber} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        var connectionDOM = this;
+        socket.emit('askConnectionNumber');
+        socket.on('returnConnectionNumber', function(counter){
+            connectionDOM.setState({connectionNumber:counter});
+        });
+        socket.on('connected', function(counter){
+            connectionDOM.setState({connectionNumber:counter});
+        });
+    }
+
+})
+
+
 
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')

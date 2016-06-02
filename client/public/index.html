@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="holder">
-	<div id='messages'></div>
+	<!-- <div id='connections'></div> -->
 	<div id='lastViewed'></div>	
     <div id="app">
 
@@ -18,12 +18,15 @@
 
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="/app-bundle.js"></script>
 <script>
   var socket = io();
-  socket.on('connected', function(counter){
-    $('#messages').text("there are " + counter + " people online");
-  });
+</script>
+<script src="/app-bundle.js"></script>
+<script>
+  // var socket = io();
+  // socket.on('connected', function(counter){
+  //   $('#connections').text("there are " + counter + " people online");
+  // });
   socket.on('lastViewed', function(campsite){
     $('#lastViewed').text("Someone just viewed " + campsite );
   });
