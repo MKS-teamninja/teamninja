@@ -32,17 +32,15 @@ class SearchBoxPage extends React.Component {
             <div >
                 <div className='row row-horizon'>
                     <div className='search-box'>
-                        <div className='col-md-12'>
+                        <div className='col-xs-12'>
                             <SearchList addSearch={this._addSearch}/>
                         </div>
                     </div>
                     <div className='row row-horizon'>
-                        <div className='col-md-4 '>
+                        <div className='col-xs-4'>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
                         </div>
-                    </div>
-                    <div className='campground-info'>
-                        <div className='col-md-7 col-md-offset-1'>
+                        <div className='col-xs-6 col-xs-offset-1'>
                             <CampgroundInfo/>
                         </div>
                     </div>
@@ -212,10 +210,10 @@ class CampgroundInfo extends React.Component {
         }
 
         return (
-          <div>
+          <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
             <ul>
-            <li>Facility name: {info.facility_name}</li>
+            <div><li>Facility name: {info.facility_name}</li></div>
             <li>Contract type: {info.contract_type}</li>
             <li>Latitude: {info.latitude}</li>
             <li>Longitude: {info.longitude}</li>
