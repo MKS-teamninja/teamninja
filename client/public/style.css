@@ -113,6 +113,11 @@ h2 {
   height: 50px;
 }
 
-
+#banner {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 330px;
+}
 
 
