@@ -2,6 +2,10 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var GoogleReact = require('react-gmaps'),
+    Gmaps = GoogleReact.Gmaps,
+    Marker = GoogleReact.Marker;
+
 var $ = require('jquery');
 var Search = require('./search');
 var SearchList = require('./searchlist');
@@ -29,6 +33,10 @@ class SearchBoxPage extends React.Component {
 //
     render() {
         let campgrounds = this.state.data;
+        let centerLatLon = this.state.centerLatLon;
+
+        console.log(this.state.centerLatLon)
+
         return (
             <div >
                 <div className='row row-horizon'>
@@ -40,6 +48,9 @@ class SearchBoxPage extends React.Component {
                     <div className='row row-horizon'>
                         <div className='col-md-4 '>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                        </div>
+                        <div className='col-md-8 '>
+                            <CampgroundsMap data={campgrounds} center={centerLatLon}/>
                         </div>
                     </div>
                 </div>
@@ -77,8 +88,12 @@ class SearchBoxPage extends React.Component {
 //
 //Gets campground data
 //
-    _fetchCampData(value) {
-        console.log(value);
+    _fetchCampData(value, valObj) {
+        console.log('Campstring', value);
+
+
+        this.setState({'centerLatLon': {'lat': valObj.lat, 'lon': valObj.lng}});
+
         value = JSON.parse(value);
 
         let urlValue = 'http://localhost:4000/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
@@ -119,10 +134,11 @@ class SearchBoxPage extends React.Component {
 
             var usePosition = function(value){
                 var obj = {};
+                console.log('Geolocation:', value);
                 obj.lat = value.coords.latitude;
                 obj.lng = value.coords.longitude;
-                obj = JSON.stringify(obj);
-               scopehelper._fetchCampData(obj);
+                var objString = JSON.stringify(obj);
+               scopehelper._fetchCampData(objString, obj);
             };
             var getLocation=function(){
                 if (navigator.geolocation) {
@@ -149,7 +165,7 @@ class SearchBoxPage extends React.Component {
                 success: (data) => {
                     let results = JSON.stringify(data.results[0].geometry.location);
                     console.log(this);
-                    this._fetchCampData(results);
+                    this._fetchCampData(results, data.results[0].geometry.location);
 
                 },
                 error: function (status, error) {
@@ -186,6 +202,70 @@ class CampgroundList1 extends React.Component {
                 </div>
             </div>
         )
+    }
+}
+
+class CampgroundsMap extends React.Component {
+    
+    onMapCreated(map) {
+        map.setOptions({
+          disableDefaultUI: true
+        });
+    }
+
+    onDragEnd(e) {
+        console.log('onDragEnd', e);
+    }
+
+    onCloseClick() {
+        console.log('onCloseClick');
+    }
+
+    onClick(e) {
+        console.log('onClick', e);
+    }
+
+    render() {
+        let allData = this.props.data;
+        let centerLatLon = this.props.center;
+        let campgroundNodes = allData.map((campground, key) => {
+            console.log('Campground-data', campground);
+            return <Marker
+                        key = {key}
+                        lat = {Number(campground.latitude)}
+                        lng = {Number(campground.longitude)}
+                        draggable = {false}
+                        onClick = {this._onClickSayHello} />
+        })
+
+        if(centerLatLon){
+        console.log(centerLatLon);
+            return <Gmaps
+                    width={'800px'}
+                    height={'600px'}
+                    lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
+                    lng={centerLatLon.lon}
+                    zoom={12}
+                    mapTypeId={"roadmap"}
+                    params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}}>
+                        {campgroundNodes}
+                </Gmaps>
+        } else {
+            console.log('fell through');
+            return <Gmaps            
+                width={'800px'}
+                height={'600px'}
+                lat={30.268} //30.2689147,"lng":-97.7403779
+                lng={-97.740}
+                zoom={12}
+                mapTypeId={"satellite"}
+                params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}}>
+            </Gmaps>
+        }
+    }
+
+    _onClicksayHello() {
+        console.log('Hello.')
     }
 }
 
