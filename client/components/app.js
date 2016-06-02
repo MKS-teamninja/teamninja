@@ -175,8 +175,26 @@ class CampgroundList1 extends React.Component {
         let allData = this.props.data;
         let campgroundNodes = allData.map(function (campground) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            console.log('photo', photo);
-            return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
+            if ( photo === 'http://reserveamerica.com/images/nophoto.jpg') {
+                photo = 'http://media.treehugger.com/assets/images/2015/06/build-perfect-fire.jpg';
+            }
+            let water, pets, tent, rv, electric, sewer;
+            if ( campground.water === 1 ){
+                water = Icons.water;
+            }
+            if ( campground.pets === 1 ){
+                pets = Icons.pets;
+            }
+            if ( campground.sewer === 1){
+                sewer = Icons.sewer;
+            }
+            return  <div className='camp-details row'>
+                        <img className='campsitePhoto' src={photo}/>
+                        <label>{campground.facility_name}</label>
+                        <img src={water}/>
+                        <img src={pets}/>
+                        <img src={sewer}/>
+                    </div>;
         });
         return (
             <div className='campground-list '>
