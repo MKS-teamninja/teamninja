@@ -41,7 +41,7 @@ class SearchBoxPage extends React.Component {
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
                         </div>
                         <div className='col-xs-6 col-xs-offset-1'>
-                            <CampgroundInfo/>
+                            {this.state.showCampgroundList ? <CampgroundInfo data={campgrounds} /> : null}
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,6 @@ class SearchBoxPage extends React.Component {
             url: '/searchcs?cgId=820400',
             data: {},
             success: (data) => {
-                console.log('campsites', data);
                 let campsite = {
                     id: this.state.campsites.length + 1,
                     campsite: JSON.stringify(data)
@@ -80,11 +79,9 @@ class SearchBoxPage extends React.Component {
 //Gets campground data
 //
     _fetchCampData(value) {
-        console.log(value);
         value = JSON.parse(value);
 
         let urlValue = '/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
-        console.log('urlValue:', urlValue);
         $.ajax({
             method: "GET",
             url: urlValue,
@@ -114,7 +111,6 @@ class SearchBoxPage extends React.Component {
 // Call to Google's api
 
     _addSearch(value) {
-        console.log(value);
       var  scopehelper = this;
         value = value.replace(" ", "");
         if (value === '') {
@@ -150,7 +146,6 @@ class SearchBoxPage extends React.Component {
 //      
                 success: (data) => {
                     let results = JSON.stringify(data.results[0].geometry.location);
-                    console.log(this);
                     this._fetchCampData(results);
 
                 },
@@ -177,7 +172,6 @@ class CampgroundList1 extends React.Component {
         let allData = this.props.data;
         let campgroundNodes = allData.map(function (campground) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            console.log('photo', photo);
             return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
@@ -193,21 +187,7 @@ class CampgroundList1 extends React.Component {
 
 class CampgroundInfo extends React.Component {
     render() {
-        let info = {
-            campground_id:1,
-            facility_id:75450,
-            facility_name:"AIRPORT BEACH SHELTER",
-            facility_photo_url:"/webphotos/NRSO/pid75450/0/80x53.jpg",
-            contract_id:"NRSO",
-            contract_type:"FEDERAL",
-            latitude:"31.6068056",
-            longitude:"-97.2336667",
-            amps:0,
-            water:0,
-            pets:1,
-            sewer:0,
-            waterfront:""
-        }
+        let info = this.props.data[0];
 
         return (
           <div className='campground-info'>
