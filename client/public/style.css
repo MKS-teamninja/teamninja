@@ -1,87 +1,123 @@
 span {
-    clear: left;
-    float: left;
-    display: inline;
+  clear: left;
+  float: left;
+  display: inline;
 }
-.app{
+
+.app {
   overflow:auto;
 }
+
 .holder {
-    padding-left:10pt;
-    border-style: none;
-    overflow: hidden;
+  padding-left:10pt;
+  border-style: none;
+  overflow: hidden;
 }
 
 body {
-    background-color: #9ecbd2;
-    text-align: center;
-    background-image: url("http://67.media.tumblr.com/tumblr_m7k4t8IFYi1rvlag0o1_500.gif");
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow-x: hidden;
+  background-color: #9ecbd2;
+  text-align: center;
+  background-image: url('https://4.bp.blogspot.com/-e-LMO43WW6g/VJB2FxL31UI/AAAAAAABZjY/rnaCW7GLPiw/s0/Camping%2Bin%2Bthe%2Bwoods%2BUHD.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
 }
 
 .search-box {
-    display: inline-block;
-    overflow:auto;
+  display: inline-block;
+  overflow:auto;
 }
 
 .search-list-fields input {
-    width: 150px;
-    min-width: 80px;
-    padding: 10px;
-    box-sizing:border-box;
+  text-align: center;
+  opacity: .8;
+  height: 3em;
+  width: 20em;
+  margin: 0.5em;
+  font-size: 1.15em;
+  box-sizing:border-box;
+  border: .1em solid black;
+  border-radius: 3%;
 }
 
 .search-list-actions button {
-    background-color: #4CAF50;
-    border:none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-
+  opacity: .8;
+  background-color: #4CAF50 ;
+  border:none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: .1em solid white;
+  border-radius: 3%;
 }
-.dontoverflow{
-    overflow:auto;
+
+.dontoverflow {
+  overflow:auto;
 }
 
 .camp-details {
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
-    border-bottom-color: #000000;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
-.camp-details label {
-    font: bold 100% "Arial";
-    color: #464646;
-    position: relative;
-    width: 60%;
-    display: inline-block;
-    padding: 10px 15px 10px 0px;
-}
-.camp-details img {
-    max-width: 80px;
-    max-height: 53px;
-    padding: 10px 15px 10px 30px;
-    position: relative;
-    display: inline-block;
-}
-.campground-list{
-    border-style: solid;
-    border-width: 4px;
-    border-color: #000000;
-    margin:0px;
-    background-color: white;
-    width: 100%;
-    min-width: 400px;
-    overflow: auto;
-    max-height:100%;
 
+.camp-details label {
+  font: bold 100% "Arial";
+  color: #464646;
+  position: relative;
+  width: 60%;
+  display: inline-block;
+  padding: 10px 15px 10px 0px;
+}
+
+.camp-details img {
+  max-width: 80px;
+  max-height: 53px;
+  padding: 10px 15px 10px 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.campground-list{
+  margin:3em;
+  background-color: white;
+  width: 100%;
+  min-width: 400px;
+  overflow: auto;
+  max-height:100%;
+  opacity: .8;
+}
+
+h2 {
+  background-color: gray;
+  color: white;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
+}
+
+.gMap {
+  float: right;
+  margin-right: 3em;
+}
+
+.campgroundPhoto {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+#banner {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 330px;
 }
 
 
