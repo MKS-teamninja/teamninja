@@ -221,14 +221,14 @@ var Connections = React.createClass({
         )
     },
     componentDidMount:function(){
-        var connectionDOM = this;
+        // var connectionDOM = this;
         socket.emit('askConnectionNumber');
         socket.on('returnConnectionNumber', function(counter){
-            connectionDOM.setState({connectionNumber:counter});
-        });
+            this.setState({connectionNumber:counter});
+        }.bind(this));
         socket.on('connected', function(counter){
-            connectionDOM.setState({connectionNumber:counter});
-        });
+            this.setState({connectionNumber:counter});
+        }.bind(this));
     }
 
 })
@@ -245,10 +245,10 @@ var LastView = React.createClass({
         )
     },
     componentDidMount:function(){
-        var connectionDOM = this;
+        // var connectionDOM = this;
         socket.on('lastViewed', function(campsite){
-            connectionDOM.setState({lastView:"someone just viewed "+campsite});
-        });
+            this.setState({lastView:"someone just viewed "+campsite});
+        }.bind(this));
     }
 
 })
