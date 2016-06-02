@@ -110,6 +110,20 @@ if (process.env.NODE_ENV === 'test'){
 
   // Start the server!
   var port = process.env.PORT || 4000
-  app.listen(port)
+  var http = require('http').Server(app);
+  var io = require('socket.io')(http);
+  var counter = 0;
+  io.on('connection', function(socket) {
+    counter++;
+    io.emit('connected', counter);
+    socket.on('disconnect', function() {
+      counter--;
+      io.emit('connected', counter);
+    })
+  });
+  var broadcastLastCampsite = function(campsite){
+    io.sockets.emit("lastViewed", campsite)
+  }
+  http.listen(port)
   console.log("Listening on port", port)
 }
