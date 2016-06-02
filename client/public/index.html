@@ -9,8 +9,6 @@
 </head>
 <body>
 <div class="holder">
-	<!-- <div id='connections'></div> -->
-	<div id='lastViewed'></div>	
     <div id="app">
 
     </div>
@@ -20,16 +18,8 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
   var socket = io();
+  //initialize socket io before loading in React
 </script>
 <script src="/app-bundle.js"></script>
-<script>
-  // var socket = io();
-  // socket.on('connected', function(counter){
-  //   $('#connections').text("there are " + counter + " people online");
-  // });
-  socket.on('lastViewed', function(campsite){
-    $('#lastViewed').text("Someone just viewed " + campsite );
-  });
-</script>
 </body>
 </html>

@@ -34,6 +34,7 @@ class SearchBoxPage extends React.Component {
                 <div className='row row-horizon'>
                     <div className='search-box'>
                         <Connections />
+                        <LastView />
                         <div className='col-md-12'>
                             <SearchList addSearch={this._addSearch}/>
                         </div>
@@ -210,7 +211,7 @@ class Campsite extends React.Component {
 
 var Connections = React.createClass({
     getInitialState:function(){
-        return {connectionNumber:1}
+        return {connectionNumber:""}
     },
     render:function(){
         return (
@@ -232,6 +233,25 @@ var Connections = React.createClass({
 
 })
 
+var LastView = React.createClass({
+    getInitialState:function(){
+        return {lastView:""}
+    },
+    render:function(){
+        return (
+            <div className="last-view">
+                <p>{this.state.lastView} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        var connectionDOM = this;
+        socket.on('lastViewed', function(campsite){
+            connectionDOM.setState({lastView:"someone just viewed "+campsite});
+        });
+    }
+
+})
 
 
 ReactDOM.render(
