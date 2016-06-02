@@ -5,7 +5,7 @@ span {
 }
 
 .app {
-overflow:auto;
+  overflow:auto;
 }
 
 .holder {
@@ -29,29 +29,29 @@ body {
 }
 
 .search-list-fields input {
-   text-align: center;
-   opacity: .8;
-   height: 3em;
-   width: 20em;
-   margin: 0.5em;
-   font-size: 1.15em;
-   box-sizing:border-box;
-   border: .1em solid black;
-   border-radius: 3%;
+  text-align: center;
+  opacity: .8;
+  height: 3em;
+  width: 20em;
+  margin: 0.5em;
+  font-size: 1.15em;
+  box-sizing:border-box;
+  border: .1em solid black;
+  border-radius: 3%;
 }
 
 .search-list-actions button {
-   opacity: .8;
-   background-color: #4CAF50 ;
-   border:none;
-   color: white;
-   padding: 15px 32px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 16px;
-   border: .1em solid white;
-   border-radius: 3%;
+  opacity: .8;
+  background-color: #4CAF50 ;
+  border:none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: .1em solid white;
+  border-radius: 3%;
 }
 
 .dontoverflow {
@@ -95,16 +95,16 @@ body {
 }
 
 h2 {
- background-color: gray;
- color: white;
- margin: auto;
- padding: 1em;
- text-align: center;
+  background-color: gray;
+  color: white;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
 }
 
 .gMap {
- float: right;
- margin-right: 3em;
+  float: right;
+  margin-right: 3em;
 }
 
 .campgroundPhoto {
