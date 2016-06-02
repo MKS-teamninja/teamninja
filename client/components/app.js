@@ -169,13 +169,17 @@ class SearchBoxPage extends React.Component {
 // Display Campground List
 
 class CampgroundList1 extends React.Component {
-
+    onclick(campground){
+        socket.emit('clickedCampground', campground);
+    }
     render() {
         let allData = this.props.data;
+        var CampgroundListDOM = this;
         let campgroundNodes = allData.map(function (campground) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
             console.log('photo', photo);
-            return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
+            var clickEvent = CampgroundListDOM.onclick.bind(this, campground);
+            return <div className='camp-details row' onClick={clickEvent}><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
             <div className='campground-list '>
