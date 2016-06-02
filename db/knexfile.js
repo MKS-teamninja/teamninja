@@ -12,13 +12,17 @@ module.exports = {
 // TODO: Configure KNEX for SQLITE3 db
 
   development: {
-    client: 'pg',
-    connection: "postgres://campgrounds:campgrounds@localhost/campgrounds"
+    client: 'sqlite3',
+    connection: {
+      filename: path.join(__dirname, '/cgdb_test.sqlite')
+    }
   },
 
   production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL
+    client: 'sqlite3',
+    connection: {
+      filename: path.join(__dirname, '/cgdb_test.sqlite')
+    }
   },
 
   test: {

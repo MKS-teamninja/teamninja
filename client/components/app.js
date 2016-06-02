@@ -196,18 +196,18 @@ class CampgroundList1 extends React.Component {
 class CampgroundInfo extends React.Component {
     render() {
         let info = {
-            campground_id:1
-            facility_id:75450
-            facility_name:"AIRPORT BEACH SHELTER"
-            facility_photo_url:"/webphotos/NRSO/pid75450/0/80x53.jpg"
-            contract_id:"NRSO"
-            contract_type:"FEDERAL"
-            latitude:"31.6068056"
-            longitude:"-97.2336667"
-            amps:0
-            water:0
-            pets:1
-            sewer:0
+            campground_id:1,
+            facility_id:75450,
+            facility_name:"AIRPORT BEACH SHELTER",
+            facility_photo_url:"/webphotos/NRSO/pid75450/0/80x53.jpg",
+            contract_id:"NRSO",
+            contract_type:"FEDERAL",
+            latitude:"31.6068056",
+            longitude:"-97.2336667",
+            amps:0,
+            water:0,
+            pets:1,
+            sewer:0,
             waterfront:""
         }
 
