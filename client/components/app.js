@@ -228,10 +228,12 @@ class CampgroundsMap extends React.Component {
     render() {
         let allData = this.props.data;
         let centerLatLon = this.props.center;
-        let campgroundNodes = allData.map((campground) => {
+        let campgroundNodes = allData.map((campground, key) => {
+            console.log('Campground-data', campground);
             return <Marker
-                        lat = {campground.lat}
-                        lng = {campground.lon}
+                        key = {key}
+                        lat = {Number(campground.latitude)}
+                        lng = {Number(campground.longitude)}
                         draggable = {false}
                         onClick = {this._onClickSayHello} />
         })
