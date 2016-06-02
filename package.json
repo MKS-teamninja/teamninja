@@ -21,6 +21,7 @@
     "promise-throttle": "^0.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-gmaps": "^1.5.0",
     "reactify": "^1.1.1",
     "request-promise": "^3.0.0",
     "sqlite3": "^3.1.4",
