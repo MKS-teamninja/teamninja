@@ -41,6 +41,11 @@ class SearchBoxPage extends React.Component {
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
                         </div>
                     </div>
+                    <div className='campground-info'>
+                        <div className='col-md-7 col-md-offset-1'>
+                            <CampgroundInfo/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -188,12 +193,64 @@ class CampgroundList1 extends React.Component {
     }
 }
 
+class CampgroundInfo extends React.Component {
+    render() {
+        let info = {
+            campground_id:1
+            facility_id:75450
+            facility_name:"AIRPORT BEACH SHELTER"
+            facility_photo_url:"/webphotos/NRSO/pid75450/0/80x53.jpg"
+            contract_id:"NRSO"
+            contract_type:"FEDERAL"
+            latitude:"31.6068056"
+            longitude:"-97.2336667"
+            amps:0
+            water:0
+            pets:1
+            sewer:0
+            waterfront:""
+        }
+
+        return (
+          <div>
+            <img src={"http://reserveamerica.com"+info.facility_photo_url} />
+            <ul>
+            <li>Facility name: {info.facility_name}</li>
+            <li>Contract type: {info.contract_type}</li>
+            <li>Latitude: {info.latitude}</li>
+            <li>Longitude: {info.longitude}</li>
+            <li>Waterfront: {info.waterfront}</li>
+            <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
+            <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
+            <li>Power amperage: {info.amps === 0 ? 'No power':info.amps}</li>
+            <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
+            </ul>
+          </div>
+        )
+    }
+}
+
 class Campsite extends React.Component {
 //
 // Renders the user's input to p tag and appends to the search-list
 //
     render() {
-
+        {/*campsiteObject = {
+            amps:0
+            campground_id_fk:820400
+            campsite_id:4305
+            max_eq_length:0
+            max_people:8
+            pets:1
+            sewer:0
+            site_id:1100
+            site_name:"01"
+            site_type:"Tent Only"
+            trail_name:"Turkey Bend Recreation Area"
+            water:0
+            waterfront:""
+        }
+        */}
         return (
             <div className="campsite-list">
                 <p className="users-campsite">{this.props.campsite}</p>
