@@ -32,13 +32,13 @@ class SearchBoxPage extends React.Component {
             
             <div >
                 <div className='row row-horizon'>
-                    <div className='search-box'>
-                        <Connections />
-                        <LastView />
-                        <div className='col-md-12'>
-                            <SearchList addSearch={this._addSearch}/>
+                        <div className='search-box'>
+                            <Connections />
+                            <LastView />
+                            <div className='col-md-12'>
+                                <SearchList addSearch={this._addSearch}/>
+                            </div>
                         </div>
-                    </div>
                     <div className='row row-horizon'>
                         <div className='col-md-4 '>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}

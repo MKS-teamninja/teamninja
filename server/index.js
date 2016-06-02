@@ -85,9 +85,12 @@ routes.get('/searchcs', function (req, res) {
 })
 
 if (process.env.NODE_ENV === 'test'){
+  //
   //export route for testing
+  //
   module.exports = routes
 }else{
+  //
   // in dev and production environment, keep on setting up the app
   //
   // The Catch-all Route
