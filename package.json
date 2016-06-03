@@ -21,7 +21,7 @@
     "nodemon": "^1.9.2",
     "pg": "^4.5.5",
     "promise-throttle": "^0.2.0",
-    "react": "^0.14.7",
+    "react": "^15.1.0",
     "react-dom": "^0.14.7",
     "reactify": "^1.1.1",
     "request-promise": "^3.0.0",
