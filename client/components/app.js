@@ -66,8 +66,6 @@ class SearchBoxPage extends React.Component {
             showCampgroundInfo: true
         });
         var campground = this.state.data[index];
-        console.log("Campground object: ", campground);
-        console.log("Campground name: ", campground.facility_name);
         socket.emit('clickedCampground', campground);
     }
 //
@@ -229,6 +227,7 @@ class CampgroundInfo extends React.Component {
         let index = this.props.index;
         let info = this.props.data[index];
 
+
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
@@ -236,16 +235,23 @@ class CampgroundInfo extends React.Component {
             <p></p>
             <ul>
             <li><span className="bold">Type:&nbsp;</span> {this._correctCasing(info.contract_type)}</li>
-            <li><span className="bold">Latitude:&nbsp;</span>  {info.latitude}</li>
-            <li><span className="bold">Longitude:&nbsp;</span>  {info.longitude}</li>
             {info.waterfront === "" ? null:<li><span className="bold">Waterfront:&nbsp;</span>  {info.waterfront}</li>}
             <li><span className="bold">Pets allowed:&nbsp;</span>  {info.pets === 1 ? 'Yes':'No'}</li>
             <li><span className="bold">Water hookup:&nbsp;</span>  {info.water === 1 ? 'Yes':'No'}</li>
             <li><span className="bold">Power amperage:&nbsp;</span>  {info.amps === 1 ? 'Yes':'No'}</li>
             <li><span className="bold">Sewer hookup:&nbsp;</span>  {info.sewer === 1 ? 'Yes':'No'}</li>
             </ul>
+            <div id="map"></div>
           </div>
         )
+    }
+    componentDidUpdate(){
+        var campground = this.props.data[this.props.index];
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
+    }
+    componentDidMount(){
+        var campground = this.props.data[this.props.index];
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
     }
 }
 

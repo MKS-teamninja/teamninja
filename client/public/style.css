@@ -112,4 +112,9 @@ body {
 
 }
 
-
+#map {
+    width: 80%;
+    height: 400px;
+    background-color: #CCC;
+    left:10%;
+}
