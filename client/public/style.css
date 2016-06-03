@@ -52,6 +52,23 @@ body {
   width: 40em;
 }
 
+.fadeBar {
+  background-image: -moz-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(252,177,42,1)), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(252,177,42,1)', endColorstr='rgba(0, 0, 0, 0)', GradientType=1);
+  padding: .12em 0;
+  position: absolute;
+  top: 9.9em;
+  z-index: 3;
+  left: 0;
+  width: 80%;
+}
+
 .title {
  margin: auto;
  text-decoration: underline;

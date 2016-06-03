@@ -37,6 +37,7 @@ class SearchBoxPage extends React.Component {
 
     return (
       <div >
+        <div className='fadeBar'></div>
         <div className='logoBox'></div>
         <h1 className='title'>OFF THE</h1>
         <div className='titleBar'></div>
