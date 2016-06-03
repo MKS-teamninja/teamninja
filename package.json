@@ -25,6 +25,7 @@
     "react-dom": "^0.14.7",
     "reactify": "^1.1.1",
     "request-promise": "^3.0.0",
+    "socket.io": "^1.4.6",
     "sqlite3": "^3.1.4",
     "underscore": "^1.8.3",
     "xml2js": "^0.4.16"

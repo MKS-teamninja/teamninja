@@ -85,9 +85,12 @@ routes.get('/searchcs', function (req, res) {
 })
 
 if (process.env.NODE_ENV === 'test'){
+  //
   //export route for testing
+  //
   module.exports = routes
 }else{
+  //
   // in dev and production environment, keep on setting up the app
   //
   // The Catch-all Route
@@ -110,6 +113,31 @@ if (process.env.NODE_ENV === 'test'){
 
   // Start the server!
   var port = process.env.PORT || 4000
-  app.listen(port)
+  var http = require('http').Server(app);
+  var io = require('socket.io')(http);
+  var counter = 0;
+  io.on('connection', function(socket) {
+    counter++;
+    io.emit('connected', counter);
+    socket.on('disconnect', function() {
+      counter--;
+      io.emit('connected', counter);
+    })
+    socket.on('clickedCampground', function(campground){
+      broadcastLastCampsite(campground.facility_name)
+    });
+    socket.on('askConnectionNumber', function(){
+      socket.emit('returnConnectionNumber', counter)
+    })
+  });
+
+
+  var broadcastLastCampsite = function(campsite){
+    io.sockets.emit("lastViewed", campsite)
+  }
+
+
+
+  http.listen(port)
   console.log("Listening on port", port)
 }
