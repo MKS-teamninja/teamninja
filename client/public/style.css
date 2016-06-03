@@ -21,6 +21,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .col-md-12{
@@ -79,7 +80,6 @@ body {
 }
 
 .camp-details label {
-  font: bold 100% "Arial";
   color: black;
   position: relative;
   width: 60%;
