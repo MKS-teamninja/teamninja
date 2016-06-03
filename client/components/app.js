@@ -237,8 +237,6 @@ class CampgroundInfo extends React.Component {
             <p></p>
             <ul>
             <li><span className="bold">Type:&nbsp;</span> {this._correctCasing(info.contract_type)}</li>
-            <li><span className="bold">Latitude:&nbsp;</span>  {info.latitude}</li>
-            <li><span className="bold">Longitude:&nbsp;</span>  {info.longitude}</li>
             {info.waterfront === "" ? null:<li><span className="bold">Waterfront:&nbsp;</span>  {info.waterfront}</li>}
             <li><span className="bold">Pets allowed:&nbsp;</span>  {info.pets === 1 ? 'Yes':'No'}</li>
             <li><span className="bold">Water hookup:&nbsp;</span>  {info.water === 1 ? 'Yes':'No'}</li>
