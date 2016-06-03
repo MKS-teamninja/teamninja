@@ -234,7 +234,7 @@ class CampgroundInfo extends React.Component {
 
         return (
           <div className='campground-info'>
-            <img src={"http://reserveamerica.com"+info.facility_photo_url} />
+            {info.facility_photo_url !== "/images/nophoto.jpg" ? <img src={"http://reserveamerica.com"+info.facility_photo_url} /> : null}
             <div className="caption">{this._correctCasing(info.facility_name)}</div>
             <p></p>
             <ul>
