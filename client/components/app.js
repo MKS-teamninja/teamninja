@@ -43,10 +43,10 @@ class SearchBoxPage extends React.Component {
                         </div>
                     <div className='row row-horizon'>
                         <div className='col-xs-4'>
-                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} handleCampgroundClick={this._handleCampgroundClick.bind(this)}/> : null}
                         </div>
                         <div className='col-xs-6 col-xs-offset-1'>
-                            {this.state.showCampgroundList ? <CampgroundInfo data={campgrounds} /> : null}
+                            {this.state.showCampgroundInfo ? <CampgroundInfo data={campgrounds} index={this.state.selectedIndex} /> : null}
                         </div>
                     </div>
                 </div>
