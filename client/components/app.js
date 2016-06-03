@@ -34,8 +34,10 @@ class SearchBoxPage extends React.Component {
   render() {
     let campgrounds = this.state.data;
     let centerLatLon = this.state.centerLatLon;
+    let locString = this.state.locationString;
 
-    console.log(this.state.centerLatLon)
+    console.log('App state', this.state);
+    console.log('App Loc String', locString)
 
     return (
       <div >
@@ -49,10 +51,10 @@ class SearchBoxPage extends React.Component {
           </div>
           <div className='row row-horizon'>
             <div className='col-md-5 '>
-              {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+              {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} locationString={locString}/> : null}
             </div>
             <div className='col-md-8 '>
-              <CampgroundsMap data={campgrounds} center={centerLatLon}/>
+              {this.state.showCampgroundList ? <CampgroundsMap data={campgrounds} center={centerLatLon}/> : null}
             </div>
           </div>
         </div>
@@ -128,7 +130,10 @@ class SearchBoxPage extends React.Component {
 // Call to Google's api
 
   _addSearch(value) {
-    console.log(value);
+    // console.log(value);
+    
+    this.setState({'locationString': value});    
+    
     var  scopehelper = this;
       value = value.replace(" ", "");
       if (value === '') {
@@ -226,8 +231,12 @@ class CampgroundList1 extends React.Component {
                 </div>
               </div>)
     });
+
+    console.log('LocString', this.props.locationString);
+
     return (<div className="campgroundSearchResults">
-              <h2 classID='campgroundsLabel' >Campgrounds</h2>
+              <h2 classID='campgroundsLabel' > Campgrounds near {this.props.locationString}</h2>
+              <br />
               <div className='campground-list '>
                 <div className='camp-list'>
                   {campgroundNodes}
