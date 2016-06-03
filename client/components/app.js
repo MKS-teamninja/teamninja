@@ -193,7 +193,7 @@ class CampgroundList1 extends React.Component {
       if ( photo === 'http://reserveamerica.com/images/nophoto.jpg') {
         photo = 'http://media.treehugger.com/assets/images/2015/06/build-perfect-fire.jpg';
       }
-      let water, pets, tent, rv, electric, sewer;
+      let water, pets, tent, rv, amps, sewer;
       if ( campground.water === 1 ){
         water = Icons.water;
       }
@@ -203,24 +203,30 @@ class CampgroundList1 extends React.Component {
       if ( campground.sewer === 1){
         sewer = Icons.sewer;
       }
+      if ( campground.amps === 1){
+        amps = Icons.amps
+      }
       return (<div className='camp-details row'>
                   <div className="campgroundPhoto">
-                    <img className="campgroundPic" src={photo}/>
+                    <img src={photo}/>
                   </div>
-                  <div className="campgroundName">
+                  <div classID="campgroundName">
                     <label>{campground.facility_name.toUpperCase()}</label>
                   </div>
                   <div className='amenities'>
                     <img src={water}/>
                     <img src={pets}/>
                     <img src={sewer}/>
+                    <img src={amps}/>
                   </div>
                 </div>)
     });
-    return (<div className='campground-list '>
-              <h2>Campgrounds</h2>
-              <div className='camp-list'>
-                {campgroundNodes}
+    return (<div>
+              <h2 classID='campgroundsLabel' >Campgrounds</h2>
+              <div className='campground-list '>
+                <div className='camp-list'>
+                  {campgroundNodes}
+                </div>
               </div>
             </div>)
   }
@@ -250,7 +256,7 @@ class CampgroundsMap extends React.Component {
     let allData = this.props.data;
     let centerLatLon = this.props.center;
     let campgroundNodes = allData.map((campground, key) => {
-      // console.log('Campground-data', campground);
+      console.log('Campground-data', campground);
       return (<Marker
               key = {key}
               lat = {Number(campground.latitude)}
@@ -282,7 +288,7 @@ class CampgroundsMap extends React.Component {
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
               zoom={12}
-              mapTypeId={"satellite"}
+              mapTypeId={"roadmap"}
               params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}} />)
     }
   }
