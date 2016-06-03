@@ -17,6 +17,8 @@ class SearchBoxPage extends React.Component {
             searches: [],
             campsites: [],
             showCampgroundList: false,
+            showCampgroundInfo: false,
+            selectedIndex: 0,
             tempobj: {}
 
         };
@@ -29,16 +31,22 @@ class SearchBoxPage extends React.Component {
     render() {
         let campgrounds = this.state.data;
         return (
+            
             <div >
                 <div className='row row-horizon'>
-                    <div className='search-box'>
-                        <div className='col-md-12'>
-                            <SearchList addSearch={this._addSearch}/>
+                        <div className='search-box'>
+                            <Connections />
+                            <LastView />
+                            <div className='col-xs-12'>
+                                <SearchList addSearch={this._addSearch}/>
+                            </div>
                         </div>
-                    </div>
                     <div className='row row-horizon'>
-                        <div className='col-md-4 '>
-                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                        <div className='col-xs-4'>
+                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} handleCampgroundClick={this._handleCampgroundClick.bind(this)}/> : null}
+                        </div>
+                        <div className='col-xs-6 col-xs-offset-1'>
+                            {this.state.showCampgroundInfo ? <CampgroundInfo data={campgrounds} index={this.state.selectedIndex} /> : null}
                         </div>
                     </div>
                 </div>
@@ -52,16 +60,23 @@ class SearchBoxPage extends React.Component {
         this.setState({data: data});
     }
 
+    _handleCampgroundClick(index) {
+        this.setState({
+            selectedIndex: index,
+            showCampgroundInfo: true
+        });
+        var campground = this.state.data[index];
+        socket.emit('clickedCampground', campground);
+    }
 //
 //Gets campsites data
 //
     _fetchCampSites() {
         $.ajax({
             method: "GET",
-            url: 'http://localhost:4000/searchcs?cgId=820400',
+            url: '/searchcs?cgId=820400',
             data: {},
             success: (data) => {
-                console.log('campsites', data);
                 let campsite = {
                     id: this.state.campsites.length + 1,
                     campsite: JSON.stringify(data)
@@ -77,11 +92,9 @@ class SearchBoxPage extends React.Component {
 //Gets campground data
 //
     _fetchCampData(value) {
-        console.log(value);
         value = JSON.parse(value);
 
-        let urlValue = 'http://localhost:4000/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
-        console.log('urlValue:', urlValue);
+        let urlValue = '/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
         $.ajax({
             method: "GET",
             url: urlValue,
@@ -109,9 +122,8 @@ class SearchBoxPage extends React.Component {
 
 //
 // Call to Google's api
-
+//
     _addSearch(value) {
-        console.log(value);
       var  scopehelper = this;
         value = value.replace(" ", "");
         if (value === '') {
@@ -147,7 +159,6 @@ class SearchBoxPage extends React.Component {
 //      
                 success: (data) => {
                     let results = JSON.stringify(data.results[0].geometry.location);
-                    console.log(this);
                     this._fetchCampData(results);
 
                 },
@@ -166,16 +177,33 @@ class SearchBoxPage extends React.Component {
         })
     }
 }
-// Display Campground List
 
+// Display Campground List
 class CampgroundList1 extends React.Component {
+    onclick(campground) {
+        socket.emit('clickedCampground', campground);
+    }
+
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
 
     render() {
         let allData = this.props.data;
-        let campgroundNodes = allData.map(function (campground) {
+        var CampgroundListDOM = this;
+        let campgroundNodes = allData.map(function (campground, index) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            console.log('photo', photo);
-            return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
+            return (
+            <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}>
+                {campground.facility_photo_url !== "/images/nophoto.jpg" ? <img src={photo}/> : <img id="hide" src={photo}/>}
+                <label>{CampgroundListDOM._correctCasing(campground.facility_name)}</label>
+            </div>);
         });
         return (
             <div className='campground-list '>
@@ -188,12 +216,70 @@ class CampgroundList1 extends React.Component {
     }
 }
 
+class CampgroundInfo extends React.Component {
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
+
+    render() {
+        let index = this.props.index;
+        let info = this.props.data[index];
+
+
+        return (
+          <div className='campground-info'>
+            {info.facility_photo_url !== "/images/nophoto.jpg" ? <img src={"http://reserveamerica.com"+info.facility_photo_url} /> : null}
+            <div className="caption">{this._correctCasing(info.facility_name)}</div>
+            <p></p>
+            <ul>
+            <li><span className="bold">Type:&nbsp;</span> {this._correctCasing(info.contract_type)}</li>
+            {info.waterfront === "" ? null:<li><span className="bold">Waterfront:&nbsp;</span>  {info.waterfront}</li>}
+            <li><span className="bold">Pets allowed:&nbsp;</span>  {info.pets === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Water hookup:&nbsp;</span>  {info.water === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Power amperage:&nbsp;</span>  {info.amps === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Sewer hookup:&nbsp;</span>  {info.sewer === 1 ? 'Yes':'No'}</li>
+            </ul>
+            <div id="map"></div>
+          </div>
+        )
+    }
+    componentDidUpdate(){
+        var campground = this.props.data[this.props.index];
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
+    }
+    componentDidMount(){
+        var campground = this.props.data[this.props.index];
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
+    }
+}
+
 class Campsite extends React.Component {
 //
 // Renders the user's input to p tag and appends to the search-list
 //
     render() {
-
+        {/*campsiteObject = {
+            amps:0
+            campground_id_fk:820400
+            campsite_id:4305
+            max_eq_length:0
+            max_people:8
+            pets:1
+            sewer:0
+            site_id:1100
+            site_name:"01"
+            site_type:"Tent Only"
+            trail_name:"Turkey Bend Recreation Area"
+            water:0
+            waterfront:""
+        }
+        */}
         return (
             <div className="campsite-list">
                 <p className="users-campsite">{this.props.campsite}</p>
@@ -202,10 +288,50 @@ class Campsite extends React.Component {
     }
 }
 
+var Connections = React.createClass({
+    getInitialState:function(){
+        return {connectionNumber:""}
+    },
+    render:function(){
+        return (
+            <div className="connection">
+                Number of user online : {this.state.connectionNumber}
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.emit('askConnectionNumber');
+        socket.on('returnConnectionNumber', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+        socket.on('connected', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+    }
+
+})
+
+var LastView = React.createClass({
+    getInitialState:function(){
+        return {lastView:""}
+    },
+    render:function(){
+        return (
+            <div className="last-view">
+                <p>{this.state.lastView} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.on('lastViewed', function(campsite){
+            this.setState({lastView:"Someone just viewed "+campsite});
+        }.bind(this));
+    }
+
+})
+
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')
 );
-
-
-
-
