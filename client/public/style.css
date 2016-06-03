@@ -135,6 +135,12 @@ h2 {
 
 }
 
+#banner {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 330px;
+}
 
 
 
