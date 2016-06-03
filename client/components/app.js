@@ -232,16 +232,16 @@ class CampgroundInfo extends React.Component {
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
-            <div>{info.facility_name}</div>
+            <div>{this._correctCasing(info.facility_name)}</div>
             <p></p>
             <ul>
-            <li>Type: {info.contract_type}</li>
+            <li>Type: {this._correctCasing(info.contract_type)}</li>
             <li>Latitude: {info.latitude}</li>
             <li>Longitude: {info.longitude}</li>
-            <li>Waterfront: {info.waterfront}</li>
+            {info.waterfront === "" ? null:<li>Waterfront: {info.waterfront}</li>}
             <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
             <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
-            <li>Power amperage: {info.amps === 0 ? 'No power':info.amps}</li>
+            <li>Power amperage: {info.amps === 1 ? 'Yes':'No'}</li>
             <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
             </ul>
           </div>
@@ -316,17 +316,12 @@ var LastView = React.createClass({
     componentDidMount:function(){
         // var connectionDOM = this;
         socket.on('lastViewed', function(campsite){
-            this.setState({lastView:"someone just viewed "+campsite});
+            this.setState({lastView:"Someone just viewed "+campsite});
         }.bind(this));
     }
 
 })
 
-
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')
 );
-
-
-
-
