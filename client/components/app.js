@@ -66,8 +66,6 @@ class SearchBoxPage extends React.Component {
             showCampgroundInfo: true
         });
         var campground = this.state.data[index];
-        // console.log("Campground object: ", campground);
-        // console.log("Campground name: ", campground.facility_name);
         socket.emit('clickedCampground', campground);
     }
 //
