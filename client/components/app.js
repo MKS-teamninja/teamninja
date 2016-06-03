@@ -291,7 +291,7 @@ var Connections = React.createClass({
     render:function(){
         return (
             <div className="connection">
-                <p> Number of user online : {this.state.connectionNumber} </p>
+                Number of user online : {this.state.connectionNumber}
             </div>
         )
     },
