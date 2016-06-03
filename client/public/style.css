@@ -3,6 +3,9 @@ span {
     float: left;
     display: inline;
 }
+ul {
+    list-style-type: none;
+}
 li {
     text-align: left;
 }
