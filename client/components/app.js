@@ -207,10 +207,10 @@ class CampgroundList1 extends React.Component {
                   <div className="campgroundPhoto">
                     <img className="campgroundPic" src={photo}/>
                   </div>
-                  <div className="campgroundName">
+                  <div classID="campgroundName">
                     <label>{campground.facility_name.toUpperCase()}</label>
                   </div>
-                  <div className='amenities'>
+                  <div classID='amenities'>
                     <img src={water}/>
                     <img src={pets}/>
                     <img src={sewer}/>
@@ -218,7 +218,7 @@ class CampgroundList1 extends React.Component {
                 </div>)
     });
     return (<div className='campground-list '>
-              <h2>Campgrounds</h2>
+              <h2 classID='campgroundsLabel' >Campgrounds</h2>
               <div className='camp-list'>
                 {campgroundNodes}
               </div>
@@ -282,7 +282,7 @@ class CampgroundsMap extends React.Component {
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
               zoom={12}
-              mapTypeId={"satellite"}
+              mapTypeId={"roadmap"}
               params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}} />)
     }
   }

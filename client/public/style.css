@@ -23,26 +23,34 @@ body {
   overflow-x: hidden;
 }
 
+.col-md-12{
+  background-color: rgba(38,88,133, 0.92);
+  width: 40em;
+  height: 12em;
+  margin-right: 7em;
+}
+
 .search-box {
   display: inline-block;
-  overflow:auto;
+  overflow: auto;
 }
 
 .search-list-fields input {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
   text-align: center;
-  opacity: .8;
   height: 3em;
   width: 20em;
   margin: 0.5em;
+  margin-top: 2em;
   font-size: 1.15em;
   box-sizing:border-box;
-  border: .1em solid black;
-  border-radius: 3%;
+  border: .1em solid white;
 }
 
 .search-list-actions button {
   opacity: .8;
-  background-color: #4CAF50 ;
+  background-color: rgba(10,167,52, 0.8);
   border:none;
   color: white;
   padding: 15px 32px;
@@ -51,7 +59,7 @@ body {
   display: inline-block;
   font-size: 16px;
   border: .1em solid white;
-  border-radius: 3%;
+  margin-top: .5em;
 }
 
 .dontoverflow {
@@ -59,17 +67,20 @@ body {
 }
 
 .camp-details {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #000000;
+  border-bottom-style: .2em solid white;
   width: 100%;
   padding: 0px;
   margin: 0px;
 }
 
+.camp-details.row {
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-bottom: .4em;
+}
+
 .camp-details label {
   font: bold 100% "Arial";
-  color: #464646;
+  color: black;
   position: relative;
   width: 60%;
   display: inline-block;
@@ -85,32 +96,43 @@ body {
 }
 
 .campground-list{
-  margin:3em;
-  background-color: white;
-  width: 100%;
-  min-width: 400px;
+  margin: 3em;
+  margin-top: 2em;
+  min-width: 40em;
   overflow: auto;
-  max-height:100%;
-  opacity: .8;
+  max-height: 40em;
 }
 
 h2 {
-  background-color: gray;
   color: white;
   margin: auto;
   padding: 1em;
+  padding-top: 0;
+  margin-top: 0;
   text-align: center;
 }
 
 .gMap {
   float: right;
   margin-right: 3em;
+  margin-top: 2em;
+  margin-left: 3em;
 }
 
 .campgroundPhoto {
   float: left;
   width: 50px;
   height: 50px;
+}
+
+#amenities {
+}
+
+.camp-list label{
+}
+
+#campgroundsLabel{
+
 }
 
 
