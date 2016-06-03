@@ -23,7 +23,6 @@ class SearchBoxPage extends React.Component {
       campsites: [],
       showCampgroundList: false,
       tempobj: {}
-
     };
     this._addSearch = this._addSearch.bind(this);
   }
@@ -35,9 +34,6 @@ class SearchBoxPage extends React.Component {
     let campgrounds = this.state.data;
     let centerLatLon = this.state.centerLatLon;
     let locString = this.state.locationString;
-
-    console.log('App state', this.state);
-    console.log('App Loc String', locString)
 
     return (
       <div >
@@ -77,7 +73,6 @@ class SearchBoxPage extends React.Component {
       url: 'http://localhost:4000/searchcs?cgId=820400',
       data: {},
       success: (data) => {
-        console.log('campsites', data);
         let campsite = {
           id: this.state.campsites.length + 1,
           campsite: JSON.stringify(data)
@@ -93,15 +88,11 @@ class SearchBoxPage extends React.Component {
 //Gets campground data
 //
   _fetchCampData(value, valObj) {
-    console.log('Campstring', value);
-
 
     this.setState({'centerLatLon': {'lat': valObj.lat, 'lon': valObj.lng}});
-
     value = JSON.parse(value);
 
     let urlValue = 'http://localhost:4000/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
-    console.log('urlValue:', urlValue);
     $.ajax({
       method: "GET",
       url: urlValue,
@@ -130,7 +121,6 @@ class SearchBoxPage extends React.Component {
 // Call to Google's api
 
   _addSearch(value) {
-    // console.log(value);
     
     this.setState({'locationString': value});    
     
@@ -139,7 +129,6 @@ class SearchBoxPage extends React.Component {
       if (value === '') {
         var usePosition = function(value){
           var obj = {};
-          console.log('Geolocation:', value);
           obj.lat = value.coords.latitude;
           obj.lng = value.coords.longitude;
           var objString = JSON.stringify(obj);
@@ -232,8 +221,6 @@ class CampgroundList1 extends React.Component {
               </div>)
     });
 
-    console.log('LocString', this.props.locationString);
-
     return (<div className="campgroundSearchResults">
               <h2 classID='campgroundsLabel' > {"Campgrounds near " + (this.props.locationString.slice(0, 1).toUpperCase() + this.props.locationString.slice(1).toLowerCase() || "Austin")}</h2>
               <br />
@@ -270,7 +257,6 @@ class CampgroundsMap extends React.Component {
     let allData = this.props.data;
     let centerLatLon = this.props.center;
     let campgroundNodes = allData.map((campground, key) => {
-      console.log('Campground-data', campground);
       return (<Marker
               key = {key}
               lat = {Number(campground.latitude)}
@@ -280,8 +266,6 @@ class CampgroundsMap extends React.Component {
     })
 
     if(centerLatLon){
-    console.log('Broken?', centerLatLon);
-    console.log(campgroundNodes);
       return (<Gmaps
                   className={'gMap'}
                   lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
@@ -303,9 +287,6 @@ class CampgroundsMap extends React.Component {
     }
   }
 
-  _onClicksayHello() {
-    console.log('Hello.')
-  }
 }
 
 class Campsite extends React.Component {
