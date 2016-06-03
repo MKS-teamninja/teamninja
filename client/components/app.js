@@ -210,17 +210,19 @@ class CampgroundList1 extends React.Component {
                   <div classID="campgroundName">
                     <label>{campground.facility_name.toUpperCase()}</label>
                   </div>
-                  <div classID='amenities'>
+                  <div className='amenities'>
                     <img src={water}/>
                     <img src={pets}/>
                     <img src={sewer}/>
                   </div>
                 </div>)
     });
-    return (<div className='campground-list '>
+    return (<div>
               <h2 classID='campgroundsLabel' >Campgrounds</h2>
-              <div className='camp-list'>
-                {campgroundNodes}
+              <div className='campground-list '>
+                <div className='camp-list'>
+                  {campgroundNodes}
+                </div>
               </div>
             </div>)
   }
