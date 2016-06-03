@@ -26,8 +26,8 @@ body {
 .col-md-8 {
   width: 40em;
   float: right;
-
 }
+
 .col-md-12 {
   width: 100%;
   height: 10em;
@@ -35,27 +35,77 @@ body {
   float: left;
 }
 
+.logoBox {
+  background-image: -moz-linear-gradient(left, rgba(10,49,84,1), rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(left, rgba(10,49,84,1), rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(10,49,84,1)), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(10,49,84,1), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(left, rgba(10,49,84,1), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(left, rgba(10,49,84,1), rgba(0, 0, 0, 0));
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(10,49,84,1)', endColorstr='rgba(0, 0, 0, 0)', GradientType=1);
+  padding: 7rem 0;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40em;
+}
+
+.fadeBar {
+  background-image: -moz-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(252,177,42,1)), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(left, rgba(252,177,42,1), rgba(0, 0, 0, 0));
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(252,177,42,1)', endColorstr='rgba(0, 0, 0, 0)', GradientType=1);
+  padding: .12em 0;
+  position: absolute;
+  top: 9.9em;
+  z-index: 3;
+  left: 0;
+  width: 80%;
+}
+
 .title {
-  float: left;
+ margin: auto;
+ text-decoration: underline;
+ font-size: 2em;
+ color: white;
+ z-index: 2;
+ top: 0.5em;
+ left: 2.9em;
+ position: absolute;
+ font-family: 'Fredericka the Great', cursive; 
+}
+
+.grid {
+  margin: auto;
+  font-size: 7em;
   color: white;
   z-index: 2;
-  top: 5%;
-  left: 5%;
+  top: .33em;
+  left: .3em;
   position: absolute;
+  font-family: 'Fredericka the Great', cursive; 
 }
 
 .search-box img{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 10em;
-    opacity: 0.5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 10em;
+  opacity: 0.5;
+  z-index: 0;
 }
 
 .search-box {
   display: inline-block;
   overflow: auto;
+  z-index: 2;
 }
 
 .search-list-fields input {
@@ -63,14 +113,14 @@ body {
   color: white;
   font: bold;
   text-align: center;
-  height: 3em;
+  height: 2.5em;
   margin: 0.5em;
   margin-top: 1em;
   font-size: 1.15em;
   box-sizing:border-box;
   border: .1em solid white;
   display: inline-block;
-  z-index: 2;
+  z-index: 3;
 }
 
 .search-list-actions button {
@@ -82,7 +132,7 @@ body {
   display: inline-block;
   border: .1em solid white;
   margin-top: .5em;
-  z-index: 2;
+  z-index: 3;
 }
 
 .dontoverflow {
@@ -128,10 +178,10 @@ h2 {
 .gMap {
   float: right;
   margin-right: 3em;
-  margin-top: 3.5em;
+  margin-top: 5.5em;
   margin-left: 3em;
   width: 35em;
-  height: 35em;
+  height: 34em;
   opacity: .8;
 }
 
@@ -148,14 +198,7 @@ h2 {
 
 .campgroundInfo {
   display: block; 
-/*  align: left;*/
 }
-
-/*#banner {
-  width: 100%;
-  height:  10em;
-  opacity: .5
-}*/
 
 .amenitiesIcon {
   max-width: 80px;

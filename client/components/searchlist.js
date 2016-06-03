@@ -5,16 +5,16 @@ var SearchList = React.createClass ({
 //
   render: function (){
     return (
-        <form className='search-list' onSubmit={(value) =>  this._handleSubmit(value) }>
-          <div className='search-list-fields'>
-            <input placeholder="Location" ref={(value) => this._searchData = value}/>
-          </div>
-          <div className='search-list-actions'>
-            <button type='submit'>
-              Find Campground
-            </button>
-          </div>
-        </form>
+      <form className='search-list' onSubmit={(value) =>  this._handleSubmit(value) }>
+        <div className='search-list-fields'>
+          <input placeholder="Location" ref={(value) => this._searchData = value}/>
+        </div>
+        <div className='search-list-actions'>
+          <button type='submit'>
+            Find Campground
+          </button>
+        </div>
+      </form>
     );
   },
 
