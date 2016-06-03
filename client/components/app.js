@@ -205,7 +205,8 @@ class CampgroundList1 extends React.Component {
 
 class CampgroundInfo extends React.Component {
     render() {
-        let info = this.props.data[0];
+        let index = this.props.index;
+        let info = this.props.data[index];
 
         return (
           <div className='campground-info'>
