@@ -179,18 +179,29 @@ class SearchBoxPage extends React.Component {
         })
     }
 }
-// Display Campground List
 
+// Display Campground List
 class CampgroundList1 extends React.Component {
-    onclick(campground){
+    onclick(campground) {
         socket.emit('clickedCampground', campground);
     }
+
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
+
     render() {
         let allData = this.props.data;
         var CampgroundListDOM = this;
         let campgroundNodes = allData.map(function (campground, index) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{campground.facility_name}</label></div>;
+            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{CampgroundListDOM._correctCasing(campground.facility_name)}</label></div>;
         });
         return (
             <div className='campground-list '>
