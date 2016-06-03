@@ -17,12 +17,10 @@ module.exports = {
       filename: path.join(__dirname, '/cgdb_test.sqlite')
     }
   },
-
+  //keeping production ie heroku env the same
   production: {
-    client: 'sqlite3',
-    connection: {
-      filename: path.join(__dirname, '/cgdb_test.sqlite')
-    }
+    client: 'pg',
+    connection: process.env.DATABASE_URL
   },
 
   test: {
