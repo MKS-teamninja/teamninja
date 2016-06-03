@@ -32,18 +32,12 @@ class SearchBoxPage extends React.Component {
             
             <div >
                 <div className='row row-horizon'>
-<<<<<<< HEAD
-                    <div className='search-box'>
-                        <div className='col-xs-12'>
-                            <SearchList addSearch={this._addSearch}/>
-=======
                         <div className='search-box'>
                             <Connections />
                             <LastView />
                             <div className='col-md-12'>
                                 <SearchList addSearch={this._addSearch}/>
                             </div>
->>>>>>> df747853b74bcbdca3228c5aaf2a14d42423f92e
                         </div>
                     <div className='row row-horizon'>
                         <div className='col-xs-4'>
