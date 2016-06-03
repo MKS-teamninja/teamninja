@@ -188,11 +188,9 @@ class CampgroundList1 extends React.Component {
     render() {
         let allData = this.props.data;
         var CampgroundListDOM = this;
-        let campgroundNodes = allData.map(function (campground) {
+        let campgroundNodes = allData.map(function (campground, index) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            console.log('photo', photo);
-            var clickEvent = CampgroundListDOM.onclick.bind(this, campground);
-            return <div className='camp-details row' onClick={clickEvent}><img src={photo}/><label>{campground.facility_name}</label></div>;
+            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
             <div className='campground-list '>
