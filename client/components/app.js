@@ -37,7 +37,10 @@ class SearchBoxPage extends React.Component {
 
     return (
       <div >
-            <h1 className='title'>Off The Grid</h1>
+        <div className='logoBox'></div>
+        <h1 className='title'>OFF THE</h1>
+        <div className='titleBar'></div>
+        <h1 className='grid'>GRID</h1>
         <div className='row row-horizon'>
           <div className='search-box'>
             <img src="logo.png"/>
