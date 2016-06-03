@@ -193,7 +193,7 @@ class CampgroundList1 extends React.Component {
       if ( photo === 'http://reserveamerica.com/images/nophoto.jpg') {
         photo = 'http://media.treehugger.com/assets/images/2015/06/build-perfect-fire.jpg';
       }
-      let water, pets, tent, rv, electric, sewer;
+      let water, pets, tent, rv, amps, sewer;
       if ( campground.water === 1 ){
         water = Icons.water;
       }
@@ -203,9 +203,12 @@ class CampgroundList1 extends React.Component {
       if ( campground.sewer === 1){
         sewer = Icons.sewer;
       }
+      if ( campground.amps === 1){
+        amps = Icons.amps
+      }
       return (<div className='camp-details row'>
                   <div className="campgroundPhoto">
-                    <img className="campgroundPic" src={photo}/>
+                    <img src={photo}/>
                   </div>
                   <div classID="campgroundName">
                     <label>{campground.facility_name.toUpperCase()}</label>
@@ -214,6 +217,7 @@ class CampgroundList1 extends React.Component {
                     <img src={water}/>
                     <img src={pets}/>
                     <img src={sewer}/>
+                    <img src={amps}/>
                   </div>
                 </div>)
     });
@@ -252,7 +256,7 @@ class CampgroundsMap extends React.Component {
     let allData = this.props.data;
     let centerLatLon = this.props.center;
     let campgroundNodes = allData.map((campground, key) => {
-      // console.log('Campground-data', campground);
+      console.log('Campground-data', campground);
       return (<Marker
               key = {key}
               lat = {Number(campground.latitude)}
