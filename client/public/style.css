@@ -29,15 +29,28 @@ body {
 
 }
 .col-md-12 {
-  background-color: rgba(44,88,124, .8);
-  width: 40em;
-  height: 9em;
+  width: 100%;
+  height: 10em;
   margin: auto;
   float: left;
 }
 
-.row.row-horizon {
+.title {
+  float: left;
+  color: white;
+  z-index: 2;
+  top: 5%;
+  left: 5%;
+  position: absolute;
+}
 
+.search-box img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 10em;
+    opacity: 0.5;
 }
 
 .search-box {
@@ -46,7 +59,7 @@ body {
 }
 
 .search-list-fields input {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
   color: white;
   font: bold;
   text-align: center;
@@ -57,11 +70,11 @@ body {
   box-sizing:border-box;
   border: .1em solid white;
   display: inline-block;
+  z-index: 2;
 }
 
 .search-list-actions button {
-  opacity: .8;
-  background-color: rgba(10,167,52, 0.8);
+  background-color: rgba(10,167,52, 0.7);
   border:none;
   color: white;
   text-align: center;
@@ -69,6 +82,7 @@ body {
   display: inline-block;
   border: .1em solid white;
   margin-top: .5em;
+  z-index: 2;
 }
 
 .dontoverflow {
@@ -143,9 +157,9 @@ h2 {
 
 }
 
-#banner {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: 330px;
-}
+/*#banner {
+  width: 100%;
+  height:  10em;
+  opacity: .5
+}*/
+
