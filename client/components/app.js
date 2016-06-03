@@ -235,7 +235,7 @@ class CampgroundList1 extends React.Component {
     console.log('LocString', this.props.locationString);
 
     return (<div className="campgroundSearchResults">
-              <h2 classID='campgroundsLabel' > Campgrounds near {this.props.locationString}</h2>
+              <h2 classID='campgroundsLabel' > {"Campgrounds near " + (this.props.locationString.slice(0, 1).toUpperCase() + this.props.locationString.slice(1).toLowerCase() || "Austin")}</h2>
               <br />
               <div className='campground-list '>
                 <div className='camp-list'>
