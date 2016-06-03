@@ -29,13 +29,22 @@ class SearchBoxPage extends React.Component {
     render() {
         let campgrounds = this.state.data;
         return (
+            
             <div >
                 <div className='row row-horizon'>
+<<<<<<< HEAD
                     <div className='search-box'>
                         <div className='col-xs-12'>
                             <SearchList addSearch={this._addSearch}/>
+=======
+                        <div className='search-box'>
+                            <Connections />
+                            <LastView />
+                            <div className='col-md-12'>
+                                <SearchList addSearch={this._addSearch}/>
+                            </div>
+>>>>>>> df747853b74bcbdca3228c5aaf2a14d42423f92e
                         </div>
-                    </div>
                     <div className='row row-horizon'>
                         <div className='col-xs-4'>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
@@ -167,12 +176,17 @@ class SearchBoxPage extends React.Component {
 // Display Campground List
 
 class CampgroundList1 extends React.Component {
-
+    onclick(campground){
+        socket.emit('clickedCampground', campground);
+    }
     render() {
         let allData = this.props.data;
+        var CampgroundListDOM = this;
         let campgroundNodes = allData.map(function (campground) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
+            console.log('photo', photo);
+            var clickEvent = CampgroundListDOM.onclick.bind(this, campground);
+            return <div className='camp-details row' onClick={clickEvent}><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
             <div className='campground-list '>
@@ -237,6 +251,51 @@ class Campsite extends React.Component {
         );
     }
 }
+
+var Connections = React.createClass({
+    getInitialState:function(){
+        return {connectionNumber:""}
+    },
+    render:function(){
+        return (
+            <div className="connection">
+                <p> Number of user online : {this.state.connectionNumber} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.emit('askConnectionNumber');
+        socket.on('returnConnectionNumber', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+        socket.on('connected', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+    }
+
+})
+
+var LastView = React.createClass({
+    getInitialState:function(){
+        return {lastView:""}
+    },
+    render:function(){
+        return (
+            <div className="last-view">
+                <p>{this.state.lastView} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.on('lastViewed', function(campsite){
+            this.setState({lastView:"someone just viewed "+campsite});
+        }.bind(this));
+    }
+
+})
+
 
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')
