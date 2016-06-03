@@ -3,6 +3,9 @@ span {
     float: left;
     display: inline;
 }
+li {
+    text-align: left;
+}
 .app{
   overflow:auto;
 }
@@ -87,6 +90,7 @@ body {
 .campground-info{
     border-style: solid;
     border-width: 4px;
+    padding: 10px;
     border-color: #000000;
     margin:0px;
     background-color: white;
@@ -96,4 +100,5 @@ body {
     max-height:100%;
 
 }
+
 

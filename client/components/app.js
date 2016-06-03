@@ -192,6 +192,7 @@ class CampgroundInfo extends React.Component {
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
+            <p></p>
             <ul>
             <div><li>Facility name: {info.facility_name}</li></div>
             <li>Contract type: {info.contract_type}</li>
