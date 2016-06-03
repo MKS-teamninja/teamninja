@@ -24,7 +24,6 @@ li {
 .bold {
     font-weight: bold;
 }
-
 body {
     background-color: #9ecbd2;
     text-align: center;
@@ -34,19 +33,17 @@ body {
     background-size: cover;
     overflow-x: hidden;
 }
-
 .search-box {
     display: inline-block;
     overflow:auto;
+    width: 100%;
 }
-
 .search-list-fields input {
     width: 150px;
     min-width: 80px;
     padding: 10px;
     box-sizing:border-box;
 }
-
 .search-list-actions button {
     background-color: #4CAF50;
     border:none;
@@ -56,12 +53,10 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-
 }
 .dontoverflow{
     overflow:auto;
 }
-
 .camp-details {
     border-bottom-style: solid;
     border-bottom-width: 1px;
@@ -95,9 +90,7 @@ body {
     min-width: 400px;
     overflow: auto;
     max-height:100%;
-
 }
-
 .campground-info{
     border-style: solid;
     border-width: 2px;
@@ -109,12 +102,22 @@ body {
     min-width: 400px;
     overflow: auto;
     max-height:100%;
-
 }
-
 #map {
     width: 80%;
     height: 400px;
     background-color: #CCC;
     left:10%;
 }
+.connection {
+color: #FFFFFF;
+text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+background: transparent;
+}
+.last-view {
+color: #FFFFFF;
+text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+background: transparent;
+}
+
+
