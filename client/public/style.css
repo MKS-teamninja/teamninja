@@ -76,12 +76,13 @@ body {
 }
 
 .search-box img{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 10em;
-    opacity: 0.5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 10em;
+  opacity: 0.5;
+  z-index: 0;
 }
 
 .search-box {
@@ -102,7 +103,7 @@ body {
   box-sizing:border-box;
   border: .1em solid white;
   display: inline-block;
-  z-index: 2;
+  z-index: 3;
 }
 
 .search-list-actions button {
@@ -114,7 +115,7 @@ body {
   display: inline-block;
   border: .1em solid white;
   margin-top: .5em;
-  z-index: 2;
+  z-index: 3;
 }
 
 .dontoverflow {
@@ -180,14 +181,7 @@ h2 {
 
 .campgroundInfo {
   display: block; 
-/*  align: left;*/
 }
-
-/*#banner {
-  width: 100%;
-  height:  10em;
-  opacity: .5
-}*/
 
 .amenitiesIcon {
   max-width: 80px;
