@@ -40,8 +40,11 @@ class SearchBoxPage extends React.Component {
                             </div>
                         </div>
                     <div className='row row-horizon'>
-                        <div className='col-md-4 '>
+                        <div className='col-xs-4'>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                        </div>
+                        <div className='col-xs-6 col-xs-offset-1'>
+                            {this.state.showCampgroundList ? <CampgroundInfo data={campgrounds} /> : null}
                         </div>
                     </div>
                 </div>
@@ -64,7 +67,6 @@ class SearchBoxPage extends React.Component {
             url: '/searchcs?cgId=820400',
             data: {},
             success: (data) => {
-                console.log('campsites', data);
                 let campsite = {
                     id: this.state.campsites.length + 1,
                     campsite: JSON.stringify(data)
@@ -80,11 +82,9 @@ class SearchBoxPage extends React.Component {
 //Gets campground data
 //
     _fetchCampData(value) {
-        console.log(value);
         value = JSON.parse(value);
 
         let urlValue = '/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
-        console.log('urlValue:', urlValue);
         $.ajax({
             method: "GET",
             url: urlValue,
@@ -114,7 +114,6 @@ class SearchBoxPage extends React.Component {
 // Call to Google's api
 
     _addSearch(value) {
-        console.log(value);
       var  scopehelper = this;
         value = value.replace(" ", "");
         if (value === '') {
@@ -150,7 +149,6 @@ class SearchBoxPage extends React.Component {
 //      
                 success: (data) => {
                     let results = JSON.stringify(data.results[0].geometry.location);
-                    console.log(this);
                     this._fetchCampData(results);
 
                 },
@@ -195,12 +193,51 @@ class CampgroundList1 extends React.Component {
     }
 }
 
+class CampgroundInfo extends React.Component {
+    render() {
+        let info = this.props.data[0];
+
+        return (
+          <div className='campground-info'>
+            <img src={"http://reserveamerica.com"+info.facility_photo_url} />
+            <div>{info.facility_name}</div>
+            <p></p>
+            <ul>
+            <li>Type: {info.contract_type}</li>
+            <li>Latitude: {info.latitude}</li>
+            <li>Longitude: {info.longitude}</li>
+            <li>Waterfront: {info.waterfront}</li>
+            <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
+            <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
+            <li>Power amperage: {info.amps === 0 ? 'No power':info.amps}</li>
+            <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
+            </ul>
+          </div>
+        )
+    }
+}
+
 class Campsite extends React.Component {
 //
 // Renders the user's input to p tag and appends to the search-list
 //
     render() {
-
+        {/*campsiteObject = {
+            amps:0
+            campground_id_fk:820400
+            campsite_id:4305
+            max_eq_length:0
+            max_people:8
+            pets:1
+            sewer:0
+            site_id:1100
+            site_name:"01"
+            site_type:"Tent Only"
+            trail_name:"Turkey Bend Recreation Area"
+            water:0
+            waterfront:""
+        }
+        */}
         return (
             <div className="campsite-list">
                 <p className="users-campsite">{this.props.campsite}</p>
