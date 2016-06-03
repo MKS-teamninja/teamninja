@@ -17,6 +17,9 @@ li {
     border-style: none;
     overflow: hidden;
 }
+.bold {
+    font-weight: bold;
+}
 
 body {
     background-color: #9ecbd2;
