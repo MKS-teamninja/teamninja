@@ -37,7 +37,7 @@ class SearchBoxPage extends React.Component {
                         <div className='search-box'>
                             <Connections />
                             <LastView />
-                            <div className='col-md-12'>
+                            <div className='col-xs-12'>
                                 <SearchList addSearch={this._addSearch}/>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ class SearchBoxPage extends React.Component {
 
 //
 // Call to Google's api
-
+//
     _addSearch(value) {
       var  scopehelper = this;
         value = value.replace(" ", "");
