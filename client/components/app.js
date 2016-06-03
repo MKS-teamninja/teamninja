@@ -244,6 +244,7 @@ class CampgroundInfo extends React.Component {
             <li><span className="bold">Power amperage:&nbsp;</span>  {info.amps === 1 ? 'Yes':'No'}</li>
             <li><span className="bold">Sewer hookup:&nbsp;</span>  {info.sewer === 1 ? 'Yes':'No'}</li>
             </ul>
+            <div id="map"></div>
           </div>
         )
     }
