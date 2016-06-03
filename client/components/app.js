@@ -17,6 +17,8 @@ class SearchBoxPage extends React.Component {
             searches: [],
             campsites: [],
             showCampgroundList: false,
+            showCampgroundInfo: false,
+            selectedIndex: 0,
             tempobj: {}
 
         };
@@ -41,10 +43,10 @@ class SearchBoxPage extends React.Component {
                         </div>
                     <div className='row row-horizon'>
                         <div className='col-xs-4'>
-                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                            {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds} handleCampgroundClick={this._handleCampgroundClick.bind(this)}/> : null}
                         </div>
                         <div className='col-xs-6 col-xs-offset-1'>
-                            {this.state.showCampgroundList ? <CampgroundInfo data={campgrounds} /> : null}
+                            {this.state.showCampgroundInfo ? <CampgroundInfo data={campgrounds} index={this.state.selectedIndex} /> : null}
                         </div>
                     </div>
                 </div>
@@ -58,6 +60,16 @@ class SearchBoxPage extends React.Component {
         this.setState({data: data});
     }
 
+    _handleCampgroundClick(index) {
+        this.setState({
+            selectedIndex: index,
+            showCampgroundInfo: true
+        });
+        var campground = this.state.data[index];
+        console.log("Campground object: ", campground);
+        console.log("Campground name: ", campground.facility_name);
+        socket.emit('clickedCampground', campground);
+    }
 //
 //Gets campsites data
 //
@@ -176,11 +188,9 @@ class CampgroundList1 extends React.Component {
     render() {
         let allData = this.props.data;
         var CampgroundListDOM = this;
-        let campgroundNodes = allData.map(function (campground) {
+        let campgroundNodes = allData.map(function (campground, index) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            console.log('photo', photo);
-            var clickEvent = CampgroundListDOM.onclick.bind(this, campground);
-            return <div className='camp-details row' onClick={clickEvent}><img src={photo}/><label>{campground.facility_name}</label></div>;
+            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
             <div className='campground-list '>
@@ -195,7 +205,8 @@ class CampgroundList1 extends React.Component {
 
 class CampgroundInfo extends React.Component {
     render() {
-        let info = this.props.data[0];
+        let index = this.props.index;
+        let info = this.props.data[index];
 
         return (
           <div className='campground-info'>
