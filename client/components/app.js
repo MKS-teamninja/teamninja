@@ -66,8 +66,8 @@ class SearchBoxPage extends React.Component {
             showCampgroundInfo: true
         });
         var campground = this.state.data[index];
-        console.log("Campground object: ", campground);
-        console.log("Campground name: ", campground.facility_name);
+        // console.log("Campground object: ", campground);
+        // console.log("Campground name: ", campground.facility_name);
         socket.emit('clickedCampground', campground);
     }
 //
@@ -229,6 +229,7 @@ class CampgroundInfo extends React.Component {
         let index = this.props.index;
         let info = this.props.data[index];
 
+
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
@@ -247,6 +248,11 @@ class CampgroundInfo extends React.Component {
             <div id="map"></div>
           </div>
         )
+    }
+    componentDidMount(){
+        var campground = this.props.data[this.props.index];
+        console.log("line 233",campground);
+        google.maps.event.addDomListenerOnce(window, 'scroll', initMap);
     }
 }
 
