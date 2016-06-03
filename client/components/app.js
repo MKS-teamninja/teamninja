@@ -215,6 +215,16 @@ class CampgroundList1 extends React.Component {
 }
 
 class CampgroundInfo extends React.Component {
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
+
     render() {
         let index = this.props.index;
         let info = this.props.data[index];
