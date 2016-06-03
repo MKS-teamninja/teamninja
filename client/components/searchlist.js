@@ -5,7 +5,7 @@ var SearchList = React.createClass ({
 //
   render: function (){
     return (
-        <form className='search-list' onSubmit={(value) => this._handleSubmit(value)}>
+        <form className='search-list' onSubmit={(value) =>  this._handleSubmit(value) }>
           <div className='search-list-fields'>
             <input placeholder="Location" ref={(value) => this._searchData = value}/>
           </div>
@@ -23,11 +23,15 @@ var SearchList = React.createClass ({
 
     this.props.addSearch(this._searchData.value);
 
-    this._searchData.value = '';
 
     //let campgrounds = this._getCampgrounds();
-    this.setState({showCampgroundList: true});
+    // console.log('Search Data value', this._searchData.value);
+    // I trusted you. VVVV VVVV VVVV
+    //  this.setState({showCampgroundList: true, locationString: this._searchData.value});
+    //  ^^^^ This code is a lie ^^^^
     //  this.setState({data: campgrounds});
+    
+    this._searchData.value = '';
   }
 });
 
