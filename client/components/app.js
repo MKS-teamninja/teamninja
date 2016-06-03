@@ -249,8 +249,6 @@ class CampgroundInfo extends React.Component {
     }
     componentDidUpdate(){
         var campground = this.props.data[this.props.index];
-        // console.log(campground)
-        // $.get('/searchcs?cgId='+)
         google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
     }
     componentDidMount(){
