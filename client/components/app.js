@@ -17,6 +17,8 @@ class SearchBoxPage extends React.Component {
             searches: [],
             campsites: [],
             showCampgroundList: false,
+            showCampgroundInfo: false,
+            selectedIndex: 0,
             tempobj: {}
 
         };
@@ -58,6 +60,16 @@ class SearchBoxPage extends React.Component {
         this.setState({data: data});
     }
 
+    _handleCampgroundClick(index) {
+        this.setState({
+            selectedIndex: index,
+            showCampgroundInfo: true
+        });
+        var campground = this.state.data[index];
+        console.log("Campground object: ", campground);
+        console.log("Campground name: ", campground.facility_name);
+        socket.emit('clickedCampground', campground);
+    }
 //
 //Gets campsites data
 //
