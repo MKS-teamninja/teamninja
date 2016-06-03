@@ -87,18 +87,9 @@ body {
   margin-bottom: .4em;
 }
 
-.camp-details label {
+.campgroundName {
   color: black;
-  position: relative;
-  width: 60%;
-  display: inline-block;
-  padding: 10px 15px 10px 0px;
-}
-
-.camp-details img {
-  max-width: 80px;
-  max-height: 53px;
-  padding: 10px 15px 10px 30px;
+  font-weight: bold;
   position: relative;
   display: inline-block;
 }
@@ -106,16 +97,15 @@ body {
 .campground-list{
   margin: 3em;
   margin-top: 2em;
-  max-width: 40em;
   overflow: auto;
-  max-height: 40em;
+  max-width: 55em;
+  max-height: 34em;
 }
 
 h2 {
   color: white;
   margin: auto;
-  padding: 2em;
-  padding-bottom: 1em;
+  padding-top: em;
   margin-top: 0;
   text-align: center;
 }
@@ -123,24 +113,24 @@ h2 {
 .gMap {
   float: right;
   margin-right: 3em;
-  margin-top: 2em;
+  margin-top: 3.5em;
   margin-left: 3em;
+  width: 35em;
+  height: 35em;
+}
+
+.campgroundPhotoDiv img{
+  display: block;
+  float: left;
+  width: 2em;
+  height: 2em;
 }
 
 .campgroundPhoto {
-  float: left;
-  width: 50px;
-  height: 50px;
 }
 
-#amenities {
-}
-
-.camp-list label{
-}
-
-#campgroundsLabel{
-
+.campgroundInfo {
+  display: block;
 }
 
 #banner {
@@ -149,3 +139,12 @@ h2 {
   top: 10px;
   width: 330px;
 }
+
+.amenitiesIcon {
+  max-width: 80px;
+  max-height: 53px;
+  padding: 1em 1em 1em 1em;
+  position: relative;
+  display: inline-block;
+}
+
