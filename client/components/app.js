@@ -193,7 +193,7 @@ class CampgroundList1 extends React.Component {
     let campgroundNodes = allData.map(function (campground) {
       let photo = "http://reserveamerica.com" + campground.facility_photo_url;
       if ( photo === 'http://reserveamerica.com/images/nophoto.jpg') {
-        photo = 'http://media.treehugger.com/assets/images/2015/06/build-perfect-fire.jpg';
+        photo = Icons.defaultFire;
       }
       let water, pets, tent, rv, amps, sewer;
       if ( campground.water === 1 ){
@@ -208,6 +208,7 @@ class CampgroundList1 extends React.Component {
       if ( campground.amps === 1){
         amps = Icons.amps
       }
+
       return (<div className='camp-details row'>
                 <div className="campgroundPhotoDiv">
                   <img className="campgroundPhoto"src={photo}/>
@@ -217,10 +218,10 @@ class CampgroundList1 extends React.Component {
                     <label>{campground.facility_name.toUpperCase()}</label>
                   </div>
                   <div className='amenities'>
-                    <img className="amenitiesIcon" title="Water Hookup" src={water}/>
-                    <img className="amenitiesIcon" title="Pets Allowed" src={pets}/>
-                    <img className="amenitiesIcon" title="Septic Hookup" src={sewer}/>
-                    <img className="amenitiesIcon" title="Electricity" src={amps}/>
+                    {campground.water ? <img className="amenitiesIcon" title="Water Hookup" src={water}/> : <span />}
+                    {campground.pets ? <img className="amenitiesIcon" title="Pets Allowed" src={pets}/> : <span />}
+                    {campground.sewer ? <img className="amenitiesIcon" title="Septic Hookup" src={sewer}/> : <span />}
+                    {campground.amps ? <img className="amenitiesIcon" title="Electricity" src={amps}/> : <span />}
                   </div>
                 </div>
               </div>)

@@ -118,6 +118,7 @@ body {
 
 h2 {
   color: white;
+  font-weight: bolder;
   margin: auto;
   padding-top: em;
   margin-top: 0;
@@ -131,22 +132,24 @@ h2 {
   margin-left: 3em;
   width: 35em;
   height: 35em;
+  opacity: .8;
 }
 
-.campgroundPhotoDiv img{
+.campgroundPhotoDiv {
   display: block;
   float: left;
-  width: 2em;
-  height: 2em;
 }
 
 .campgroundPhoto {
+  margin: .5em;
+  height: 64px;
+  width: 106px;
 }
 
 .campgroundInfo {
-  display: block;
+  display: block; 
+/*  align: left;*/
 }
-
 
 /*#banner {
   width: 100%;
@@ -162,4 +165,8 @@ h2 {
   display: inline-block;
 }
 
-
+::-webkit-input-placeholder {
+   color: white;
+   font-weight: bold;
+   opacity: 1 !important; /* for chrome */
+}
