@@ -46,7 +46,7 @@ class SearchBoxPage extends React.Component {
             </div>
           </div>
           <div className='row row-horizon'>
-            <div className='col-md-4 '>
+            <div className='col-md-5 '>
               {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
             </div>
             <div className='col-md-8 '>
@@ -207,21 +207,23 @@ class CampgroundList1 extends React.Component {
         amps = Icons.amps
       }
       return (<div className='camp-details row'>
-                  <div className="campgroundPhoto">
-                    <img src={photo}/>
-                  </div>
+                <div className="campgroundPhotoDiv">
+                  <img className="campgroundPhoto"src={photo}/>
+                </div>
+                <div className="campgroundInfo">
                   <div classID="campgroundName">
                     <label>{campground.facility_name.toUpperCase()}</label>
                   </div>
                   <div className='amenities'>
-                    <img src={water}/>
-                    <img src={pets}/>
-                    <img src={sewer}/>
-                    <img src={amps}/>
+                    <img className="amenitiesIcon" title="Water Hookup" src={water}/>
+                    <img className="amenitiesIcon" title="Pets Allowed" src={pets}/>
+                    <img className="amenitiesIcon" title="Septic Hookup" src={sewer}/>
+                    <img className="amenitiesIcon" title="Electricity" src={amps}/>
                   </div>
-                </div>)
+                </div>
+              </div>)
     });
-    return (<div>
+    return (<div className="campgroundSearchResults">
               <h2 classID='campgroundsLabel' >Campgrounds</h2>
               <div className='campground-list '>
                 <div className='camp-list'>
@@ -270,8 +272,6 @@ class CampgroundsMap extends React.Component {
     console.log(campgroundNodes);
       return (<Gmaps
                   className={'gMap'}
-                  width={'40em'}
-                  height={'40em'}
                   lat={centerLatLon.lat} //30.2689147,"lng":-97.7403779
                   lng={centerLatLon.lon}
                   zoom={8}
@@ -283,11 +283,9 @@ class CampgroundsMap extends React.Component {
       console.log('fell through');
       return (<Gmaps            
               className={'gMap'}
-              width={'40em'}
-              height={'40em'}
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
-              zoom={12}
+              zoom={10}
               mapTypeId={"roadmap"}
               params={{v: '3.exp', key: 'AIzaSyCCfn3S6RHaKETANh7_lrVHpc25D7IcXB4'}} />)
     }
