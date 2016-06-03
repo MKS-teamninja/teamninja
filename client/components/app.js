@@ -37,7 +37,7 @@ class SearchBoxPage extends React.Component {
                         <div className='search-box'>
                             <Connections />
                             <LastView />
-                            <div className='col-md-12'>
+                            <div className='col-xs-12'>
                                 <SearchList addSearch={this._addSearch}/>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ class SearchBoxPage extends React.Component {
 
 //
 // Call to Google's api
-
+//
     _addSearch(value) {
       var  scopehelper = this;
         value = value.replace(" ", "");
@@ -179,18 +179,29 @@ class SearchBoxPage extends React.Component {
         })
     }
 }
-// Display Campground List
 
+// Display Campground List
 class CampgroundList1 extends React.Component {
-    onclick(campground){
+    onclick(campground) {
         socket.emit('clickedCampground', campground);
     }
+
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
+
     render() {
         let allData = this.props.data;
         var CampgroundListDOM = this;
         let campgroundNodes = allData.map(function (campground, index) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
-            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{campground.facility_name}</label></div>;
+            return <div className='camp-details row' onClick={() => (CampgroundListDOM.props.handleCampgroundClick(index))}><img src={photo}/><label>{CampgroundListDOM._correctCasing(campground.facility_name)}</label></div>;
         });
         return (
             <div className='campground-list '>
@@ -204,6 +215,16 @@ class CampgroundList1 extends React.Component {
 }
 
 class CampgroundInfo extends React.Component {
+    _correctCasing(str) {
+        return str.split(' ')
+        .map(function(word) {
+            if(word === "") { return word }
+            return word[0] + word.slice(1).toLowerCase();
+        }).reduce(function(acc, cur) {
+            return acc + " " + cur;
+        });
+    }
+
     render() {
         let index = this.props.index;
         let info = this.props.data[index];
@@ -211,16 +232,16 @@ class CampgroundInfo extends React.Component {
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
-            <div>{info.facility_name}</div>
+            <div>{this._correctCasing(info.facility_name)}</div>
             <p></p>
             <ul>
-            <li>Type: {info.contract_type}</li>
+            <li>Type: {this._correctCasing(info.contract_type)}</li>
             <li>Latitude: {info.latitude}</li>
             <li>Longitude: {info.longitude}</li>
-            <li>Waterfront: {info.waterfront}</li>
+            {info.waterfront === "" ? null:<li>Waterfront: {info.waterfront}</li>}
             <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
             <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
-            <li>Power amperage: {info.amps === 0 ? 'No power':info.amps}</li>
+            <li>Power amperage: {info.amps === 1 ? 'Yes':'No'}</li>
             <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
             </ul>
           </div>
@@ -295,17 +316,12 @@ var LastView = React.createClass({
     componentDidMount:function(){
         // var connectionDOM = this;
         socket.on('lastViewed', function(campsite){
-            this.setState({lastView:"someone just viewed "+campsite});
+            this.setState({lastView:"Someone just viewed "+campsite});
         }.bind(this));
     }
 
 })
 
-
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')
 );
-
-
-
-
