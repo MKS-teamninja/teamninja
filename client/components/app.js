@@ -249,10 +249,15 @@ class CampgroundInfo extends React.Component {
           </div>
         )
     }
+    componentDidUpdate(){
+        var campground = this.props.data[this.props.index];
+        // console.log(campground)
+        // $.get('/searchcs?cgId='+)
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
+    }
     componentDidMount(){
         var campground = this.props.data[this.props.index];
-        console.log("line 233",campground);
-        google.maps.event.addDomListenerOnce(window, 'scroll', initMap);
+        google.maps.event.addDomListenerOnce(window, 'click', initMap.bind(null, {lat:campground.latitude, lng:campground.longitude, title:campground.facility_name}));
     }
 }
 
