@@ -17,6 +17,13 @@ li {
     border-style: none;
     overflow: hidden;
 }
+.caption {
+    font-weight: bold;
+    font-size: 25px;
+}
+.bold {
+    font-weight: bold;
+}
 
 body {
     background-color: #9ecbd2;

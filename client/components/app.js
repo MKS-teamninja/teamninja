@@ -232,17 +232,17 @@ class CampgroundInfo extends React.Component {
         return (
           <div className='campground-info'>
             <img src={"http://reserveamerica.com"+info.facility_photo_url} />
-            <div>{this._correctCasing(info.facility_name)}</div>
+            <div className="caption">{this._correctCasing(info.facility_name)}</div>
             <p></p>
             <ul>
-            <li>Type: {this._correctCasing(info.contract_type)}</li>
-            <li>Latitude: {info.latitude}</li>
-            <li>Longitude: {info.longitude}</li>
-            {info.waterfront === "" ? null:<li>Waterfront: {info.waterfront}</li>}
-            <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
-            <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
-            <li>Power amperage: {info.amps === 1 ? 'Yes':'No'}</li>
-            <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Type:&nbsp;</span> {this._correctCasing(info.contract_type)}</li>
+            <li><span className="bold">Latitude:&nbsp;</span>  {info.latitude}</li>
+            <li><span className="bold">Longitude:&nbsp;</span>  {info.longitude}</li>
+            {info.waterfront === "" ? null:<li><span className="bold">Waterfront:&nbsp;</span>  {info.waterfront}</li>}
+            <li><span className="bold">Pets allowed:&nbsp;</span>  {info.pets === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Water hookup:&nbsp;</span>  {info.water === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Power amperage:&nbsp;</span>  {info.amps === 1 ? 'Yes':'No'}</li>
+            <li><span className="bold">Sewer hookup:&nbsp;</span>  {info.sewer === 1 ? 'Yes':'No'}</li>
             </ul>
           </div>
         )
