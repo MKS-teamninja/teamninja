@@ -23,5 +23,10 @@ module.exports = {
     connection: {
       filename: path.join(__dirname, '/cgdb_test.sqlite')
     }
+  },
+
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL
   }
 };
