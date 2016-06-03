@@ -39,8 +39,10 @@ class SearchBoxPage extends React.Component {
 
     return (
       <div >
+            <h1 className='title'>Off The Grid</h1>
         <div className='row row-horizon'>
           <div className='search-box'>
+            <img src="logo.png"/>
             <div className='col-md-12'>
               <SearchList addSearch={this._addSearch}/>
             </div>
@@ -102,7 +104,7 @@ class SearchBoxPage extends React.Component {
       method: "GET",
       url: urlValue,
       data: {},
-//        
+//
 // On success: prints campsite data to page then calls this.setState
 //
       success: (data) => {
@@ -159,7 +161,7 @@ class SearchBoxPage extends React.Component {
         data: {},
 //
 // On success: consoles the long and lat, then calls this._secondAjax
-//      
+//
         success: (data) => {
           let results = JSON.stringify(data.results[0].geometry.location);
           console.log(this);
@@ -235,7 +237,7 @@ class CampgroundList1 extends React.Component {
 }
 
 class CampgroundsMap extends React.Component {
-  
+
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
@@ -281,7 +283,7 @@ class CampgroundsMap extends React.Component {
                 </Gmaps>)
     } else {
       console.log('fell through');
-      return (<Gmaps            
+      return (<Gmaps
               className={'gMap'}
               lat={30.268} //30.2689147,"lng":-97.7403779
               lng={-97.740}
