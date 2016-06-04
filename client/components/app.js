@@ -26,7 +26,7 @@ class SearchBoxPage extends React.Component {
     };
     this._addSearch = this._addSearch.bind(this);
   }
-
+  
 //
 // Renders the page
 //
