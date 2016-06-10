@@ -87,7 +87,7 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 Authors
 
-Mark Boraski (Product Owner) - https://github.com/orgs/MKS-teamninja/people/SpartanSOS
+Mark Boraski (Product Owner) - https://github.com/SpartanSOS
 
 Maher Dakkak (SCRUM Master) - https://github.com/Madakkak
 
