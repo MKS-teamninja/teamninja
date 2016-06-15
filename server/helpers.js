@@ -31,10 +31,9 @@ var getBoundaryFn = function(lat, lon, radMi) {
   return function(cg) {
     var cglat = parseFloat(cg.latitude);
     var cglon = parseFloat(cg.longitude);
-    console.log("radKm: ", radKm);
+    // console.log("radKm: ", radKm);
 
-    console.log("Cg " + cg.facility_id + " is " +
-                distance(lat, lon, cglat, cglon) + " km away");
+    // console.log("Cg " + cg.facility_id + " is " + distance(lat, lon, cglat, cglon) + " km away");
     return distance(lat, lon, cglat, cglon) <= radKm;
   }
 }

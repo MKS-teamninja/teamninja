@@ -29,16 +29,22 @@ class SearchBoxPage extends React.Component {
     render() {
         let campgrounds = this.state.data;
         return (
+            
             <div >
                 <div className='row row-horizon'>
-                    <div className='search-box'>
-                        <div className='col-md-12'>
-                            <SearchList addSearch={this._addSearch}/>
+                        <div className='search-box'>
+                            <Connections />
+                            <LastView />
+                            <div className='col-md-12'>
+                                <SearchList addSearch={this._addSearch}/>
+                            </div>
                         </div>
-                    </div>
                     <div className='row row-horizon'>
-                        <div className='col-md-4 '>
+                        <div className='col-xs-4'>
                             {this.state.showCampgroundList ? <CampgroundList1 data={campgrounds}/> : null}
+                        </div>
+                        <div className='col-xs-6 col-xs-offset-1'>
+                            {this.state.showCampgroundList ? <CampgroundInfo data={campgrounds} /> : null}
                         </div>
                     </div>
                 </div>
@@ -58,10 +64,9 @@ class SearchBoxPage extends React.Component {
     _fetchCampSites() {
         $.ajax({
             method: "GET",
-            url: 'http://localhost:4000/searchcs?cgId=820400',
+            url: '/searchcs?cgId=820400',
             data: {},
             success: (data) => {
-                console.log('campsites', data);
                 let campsite = {
                     id: this.state.campsites.length + 1,
                     campsite: JSON.stringify(data)
@@ -77,11 +82,9 @@ class SearchBoxPage extends React.Component {
 //Gets campground data
 //
     _fetchCampData(value) {
-        console.log(value);
         value = JSON.parse(value);
 
-        let urlValue = 'http://localhost:4000/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
-        console.log('urlValue:', urlValue);
+        let urlValue = '/searchcg?lat=' + value.lat + '&lon=' + value.lng + '&rad=100';
         $.ajax({
             method: "GET",
             url: urlValue,
@@ -111,7 +114,6 @@ class SearchBoxPage extends React.Component {
 // Call to Google's api
 
     _addSearch(value) {
-        console.log(value);
       var  scopehelper = this;
         value = value.replace(" ", "");
         if (value === '') {
@@ -147,7 +149,6 @@ class SearchBoxPage extends React.Component {
 //      
                 success: (data) => {
                     let results = JSON.stringify(data.results[0].geometry.location);
-                    console.log(this);
                     this._fetchCampData(results);
 
                 },
@@ -169,13 +170,17 @@ class SearchBoxPage extends React.Component {
 // Display Campground List
 
 class CampgroundList1 extends React.Component {
-
+    onclick(campground){
+        socket.emit('clickedCampground', campground);
+    }
     render() {
         let allData = this.props.data;
+        var CampgroundListDOM = this;
         let campgroundNodes = allData.map(function (campground) {
             let photo = "http://reserveamerica.com" + campground.facility_photo_url;
             console.log('photo', photo);
-            return <div className='camp-details row'><img src={photo}/><label>{campground.facility_name}</label></div>;
+            var clickEvent = CampgroundListDOM.onclick.bind(this, campground);
+            return <div className='camp-details row' onClick={clickEvent}><img src={photo}/><label>{campground.facility_name}</label></div>;
         });
         return (
             <div className='campground-list '>
@@ -188,12 +193,51 @@ class CampgroundList1 extends React.Component {
     }
 }
 
+class CampgroundInfo extends React.Component {
+    render() {
+        let info = this.props.data[0];
+
+        return (
+          <div className='campground-info'>
+            <img src={"http://reserveamerica.com"+info.facility_photo_url} />
+            <div>{info.facility_name}</div>
+            <p></p>
+            <ul>
+            <li>Type: {info.contract_type}</li>
+            <li>Latitude: {info.latitude}</li>
+            <li>Longitude: {info.longitude}</li>
+            <li>Waterfront: {info.waterfront}</li>
+            <li>Pets allowed: {info.pets === 1 ? 'Yes':'No'}</li>
+            <li>Water hookup: {info.water === 1 ? 'Yes':'No'}</li>
+            <li>Power amperage: {info.amps === 0 ? 'No power':info.amps}</li>
+            <li>Sewer hookup: {info.sewer === 1 ? 'Yes':'No'}</li>
+            </ul>
+          </div>
+        )
+    }
+}
+
 class Campsite extends React.Component {
 //
 // Renders the user's input to p tag and appends to the search-list
 //
     render() {
-
+        {/*campsiteObject = {
+            amps:0
+            campground_id_fk:820400
+            campsite_id:4305
+            max_eq_length:0
+            max_people:8
+            pets:1
+            sewer:0
+            site_id:1100
+            site_name:"01"
+            site_type:"Tent Only"
+            trail_name:"Turkey Bend Recreation Area"
+            water:0
+            waterfront:""
+        }
+        */}
         return (
             <div className="campsite-list">
                 <p className="users-campsite">{this.props.campsite}</p>
@@ -201,6 +245,51 @@ class Campsite extends React.Component {
         );
     }
 }
+
+var Connections = React.createClass({
+    getInitialState:function(){
+        return {connectionNumber:""}
+    },
+    render:function(){
+        return (
+            <div className="connection">
+                <p> Number of user online : {this.state.connectionNumber} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.emit('askConnectionNumber');
+        socket.on('returnConnectionNumber', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+        socket.on('connected', function(counter){
+            this.setState({connectionNumber:counter});
+        }.bind(this));
+    }
+
+})
+
+var LastView = React.createClass({
+    getInitialState:function(){
+        return {lastView:""}
+    },
+    render:function(){
+        return (
+            <div className="last-view">
+                <p>{this.state.lastView} </p>
+            </div>
+        )
+    },
+    componentDidMount:function(){
+        // var connectionDOM = this;
+        socket.on('lastViewed', function(campsite){
+            this.setState({lastView:"someone just viewed "+campsite});
+        }.bind(this));
+    }
+
+})
+
 
 ReactDOM.render(
     <SearchBoxPage />, document.getElementById('app')

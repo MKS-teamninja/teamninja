@@ -4,3 +4,6 @@ bower_components/
 reference.js
 build/
 dist/
+config.js
+*.DS_Store
+*.sqlite
