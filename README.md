@@ -1,6 +1,5 @@
 
 OffTheGrid Campground Finder
-(MKS36 Team Ninja Greenfield Project)
 
 OffTheGrid is a campground search app that facilitates locating campground info from anywhere in the US (currently limited to only Texas). Whether you want to find campgrounds near your or near a specific location, this app will find them all and show you any relevant info you might need to help you get as far off the grid as you want.
 
