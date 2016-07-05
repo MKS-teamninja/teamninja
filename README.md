@@ -84,20 +84,7 @@ Contributing
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
-Authors
 
-Mark Boraski (Product Owner) - https://github.com/orgs/MKS-teamninja/people/SpartanSOS
 
-Maher Dakkak (SCRUM Master) - https://github.com/Madakkak
-
-Jack Hall - https://github.com/orgs/MKS-teamninja/people/jackjhall22
-
-Matthew DuBose - https://github.com/orgs/MKS-teamninja/people/mjdubose
-
-Vidush Rana - https://github.com/orgs/MKS-teamninja/people/Vidushr
-
-Acknowledgments
-
-Gilbert Garza for the React catapult project starter code!
 
 https://github.com/Concatapult/node-catapult
